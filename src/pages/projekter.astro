@@ -1,0 +1,16 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ProjectList from '../components/ProjectList.astro';
+import { getProjects } from '../data/projects';
+
+const projects = getProjects();
+---
+
+<MainLayout title="Projekter - Candello Media" description="Se vores tidligere projekter og cases">
+  <div class="container mx-auto px-4 py-12">
+    <SectionHeading title="Projekter fra tidligere kunder" />
+    <ProjectList projects={projects} />
+  </div>
+</MainLayout>
+

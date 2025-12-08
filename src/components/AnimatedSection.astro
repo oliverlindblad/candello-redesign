@@ -1,0 +1,24 @@
+---
+// Reusable animated section wrapper using Motion One
+// Usage: Wrap any section with this component for entrance animations
+---
+
+<div class="animated-section">
+  <slot />
+</div>
+
+<script>
+  import { animate, inView } from 'motion';
+
+  // Animate section when it enters viewport
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('.animated-section');
+    
+    sections.forEach((section) => {
+      inView(section, () => {
+        animate(section, { opacity: [0, 1], y: [20, 0] }, { duration: 0.6, easing: 'ease-out' });
+      });
+    });
+  });
+</script>
+

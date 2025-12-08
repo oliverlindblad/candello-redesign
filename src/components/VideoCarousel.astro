@@ -1,0 +1,428 @@
+---
+// Video carousel component with autoplay, loop, and navigation controls
+interface Props {
+  videos?: Array<{
+    src: string;
+    title?: string;
+    subtitle?: string;
+  }>;
+}
+
+const { videos = [] } = Astro.props;
+
+// Project videos
+const defaultVideos = [
+  { 
+    src: '/videos/soegaard-staalbyg-reference-hjemmeside.mp4', 
+    title: 'Søgaard Stålbyg',
+    titleLines: ['Søgaard Stålbyg'],
+    subtitle: 'En moderne virksomhed i byggebranchen'
+  },
+  { 
+    src: '/videos/hoeje-taastrup-turist-reference-hjemmeside.mp4', 
+    title: 'Høje Taastrup Turistforening',
+    titleLines: ['Høje', 'Taastrup', 'Turistforening'],
+    subtitle: 'Se de mange seværdigheder fra Taastrup'
+  },
+  { 
+    src: '/videos/v-meyer-reference-hjemmeside.mp4', 
+    title: 'V. Meyer',
+    titleLines: ['V.', 'Meyer'],
+    subtitle: 'Sætter moderne præg på de danske byggerier'
+  },
+  { 
+    src: '/videos/stm-stemningsfilm-opdateret.mp4', 
+    title: 'STM Vinduer',
+    titleLines: ['STM', 'Vinduer'],
+    subtitle: 'En virtuel messestand under corona'
+  },
+];
+
+const videoList = videos.length > 0 ? videos : defaultVideos;
+let currentIndex = 0;
+---
+
+<section class="video-carousel relative w-full h-screen overflow-hidden">
+  <!-- Video container -->
+  <div class="relative w-full h-full">
+    {videoList.map((video, index) => (
+      <video
+        data-video-index={index}
+        class={`absolute inset-0 w-full h-full object-cover ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
+        style={index === 0 ? 'transition: opacity 0ms;' : 'transition: opacity 0ms; opacity: 0;'}
+        autoplay
+        muted
+        playsinline
+      >
+        <source src={video.src} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    ))}
+    <!-- Dark overlay for better text visibility -->
+    <div class="absolute inset-0 bg-black/60 z-0"></div>
+  </div>
+
+  <!-- Navigation arrows -->
+  <button
+    id="carousel-prev"
+    class="absolute left-4 sm:left-8 top-1/2 transform -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-transparent border border-neutral-light rounded-full flex items-center justify-center hover:bg-brand-green hover:border-brand-green transition-all duration-300"
+    aria-label="Previous video"
+  >
+    <svg class="w-5 h-5 sm:w-6 sm:h-6 text-neutral-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+    </svg>
+  </button>
+
+  <button
+    id="carousel-next"
+    class="absolute right-4 sm:right-8 top-1/2 transform -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-transparent border border-neutral-light rounded-full flex items-center justify-center hover:bg-brand-green hover:border-brand-green transition-all duration-300"
+    aria-label="Next video"
+  >
+    <svg class="w-5 h-5 sm:w-6 sm:h-6 text-neutral-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+    </svg>
+  </button>
+
+  <!-- Mobile: Progress bars only - positioned at top above logo -->
+  <div class="absolute top-0 left-0 right-0 pt-2 sm:hidden z-30">
+    <div class="w-full px-4">
+      <div class="max-w-7xl mx-auto flex justify-between gap-3 items-center">
+        {videoList.map((video, index) => (
+          <div 
+            data-mobile-progress-wrapper={index}
+            class="flex-1 h-0.5 bg-neutral-light/30 relative overflow-hidden"
+          >
+            <!-- Progress fill (active video only, fills from left) -->
+            <div
+              data-teaser-progress-mobile={index}
+              class="absolute left-0 top-0 bottom-0 bg-neutral-light transition-[width] duration-150 ease-linear"
+              style="width: 0%"
+            ></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Desktop: Project teasers overlay - positioned below nav, full width -->
+  <div class="hidden sm:block absolute bottom-8 left-0 right-0 z-10">
+    <div class="w-full px-4">
+      <div id="project-teasers" class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-4 w-full max-w-7xl mx-auto">
+        {videoList.map((video, index) => (
+          <div
+            data-teaser-index={index}
+            class="project-teaser cursor-pointer transition-all duration-300 opacity-70 hover:opacity-100"
+          >
+            <div class="text-left">
+              <h3 class="text-neutral-light text-lg font-heading mb-1 leading-normal">{video.title || `Project ${index + 1}`}</h3>
+              {video.subtitle && (
+                <p class="text-neutral-light text-sm font-body mb-3 leading-normal">{video.subtitle}</p>
+              )}
+              <!-- Progress line -->
+              <div class="h-px bg-neutral-light/30 w-full overflow-hidden">
+                <div
+                  data-teaser-progress={index}
+                  class="h-full bg-neutral-light transition-[width] duration-150 ease-linear"
+                  style="width: 0%"
+                ></div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { animate } from 'motion';
+
+  const videos = Array.from(document.querySelectorAll('[data-video-index]')) as HTMLVideoElement[];
+  const teasers = Array.from(document.querySelectorAll('[data-teaser-index]'));
+  const prevButton = document.getElementById('carousel-prev');
+  const nextButton = document.getElementById('carousel-next');
+  
+  let currentIndex = 0;
+  let currentVideo: HTMLVideoElement | null = null;
+  let videoDuration: number = 0;
+  let progressAnimationFrame: number | null = null;
+  let isChangingVideo: boolean = false;
+
+  // Get all progress bars (desktop) - needs to be inside a function or after DOM is ready
+  function getProgressBars() {
+    return Array.from(document.querySelectorAll('[data-teaser-progress]')) as HTMLElement[];
+  }
+
+  // Get all mobile progress bars
+  function getMobileProgressBars() {
+    return Array.from(document.querySelectorAll('[data-teaser-progress-mobile]')) as HTMLElement[];
+  }
+
+  // Animate progress line smoothly using requestAnimationFrame
+  function animateProgress() {
+    // Safety check - ensure we're still working with the current video
+    if (!currentVideo || videoDuration === 0 || currentIndex === null || currentIndex < 0) {
+      if (progressAnimationFrame !== null) {
+        cancelAnimationFrame(progressAnimationFrame);
+        progressAnimationFrame = null;
+      }
+      return;
+    }
+    
+    // Double check that currentVideo is still the active video
+    if (videos[currentIndex] !== currentVideo) {
+      if (progressAnimationFrame !== null) {
+        cancelAnimationFrame(progressAnimationFrame);
+        progressAnimationFrame = null;
+      }
+      return;
+    }
+    
+    const progressBars = getProgressBars();
+    const mobileProgressBars = getMobileProgressBars();
+    
+    // Calculate progress percentage
+    const progress = (currentVideo.currentTime / videoDuration) * 100;
+    
+    // Update desktop progress bars
+    progressBars.forEach((bar, index) => {
+      if (index === currentIndex) {
+        bar.style.width = `${Math.min(progress, 100)}%`;
+      } else {
+        bar.style.width = '0%';
+      }
+    });
+    
+    // Update mobile progress bars
+    mobileProgressBars.forEach((bar, index) => {
+      if (index === currentIndex) {
+        bar.style.width = `${Math.min(progress, 100)}%`;
+      } else {
+        bar.style.width = '0%';
+      }
+    });
+    
+    // Continue animation while video is playing and not ended
+    if (!currentVideo.paused && !currentVideo.ended && currentVideo.currentTime < videoDuration) {
+      progressAnimationFrame = requestAnimationFrame(animateProgress);
+    } else {
+      progressAnimationFrame = null;
+    }
+  }
+
+  // Handle video metadata loaded - store duration
+  function handleLoadedMetadata(e: Event) {
+    const video = e.target as HTMLVideoElement;
+    if (video.duration && !isNaN(video.duration) && video.duration > 0) {
+      videoDuration = video.duration;
+      // Start animation loop if video is playing
+      if (progressAnimationFrame === null && !video.paused && video === currentVideo) {
+        animateProgress();
+      }
+    }
+  }
+
+  // Handle video end event
+  function handleVideoEnd(e: Event) {
+    const video = e.target as HTMLVideoElement;
+    // Stop animation loop
+    if (progressAnimationFrame !== null) {
+      cancelAnimationFrame(progressAnimationFrame);
+      progressAnimationFrame = null;
+    }
+    // Immediately hide and pause the current video with inline style (no transition)
+    video.style.opacity = '0';
+    video.style.transition = 'opacity 0ms';
+    video.pause();
+    video.currentTime = 0;
+    // Remove listeners
+    video.removeEventListener('ended', handleVideoEnd);
+    video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+    // Reset all progress bars (desktop and mobile)
+    const progressBars = getProgressBars();
+    const mobileProgressBars = getMobileProgressBars();
+    progressBars.forEach((bar) => {
+      bar.style.width = '0%';
+    });
+    mobileProgressBars.forEach((bar) => {
+      bar.style.width = '0%';
+    });
+    // Switch to next video
+    nextVideo();
+  }
+
+  function showVideo(index: number) {
+    // Prevent multiple simultaneous calls
+    if (isChangingVideo) {
+      return;
+    }
+    isChangingVideo = true;
+    
+    // Stop any ongoing animation
+    if (progressAnimationFrame !== null) {
+      cancelAnimationFrame(progressAnimationFrame);
+      progressAnimationFrame = null;
+    }
+
+    // Remove listeners from previous video and hide it immediately
+    if (currentVideo) {
+      currentVideo.removeEventListener('ended', handleVideoEnd);
+      currentVideo.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      currentVideo.style.opacity = '0';
+      currentVideo.style.transition = 'opacity 0ms';
+      currentVideo.pause();
+      currentVideo.currentTime = 0;
+    }
+
+    // Reset duration
+    videoDuration = 0;
+
+    // Reset all progress bars to 0% (desktop and mobile)
+    const progressBars = getProgressBars();
+    const mobileProgressBars = getMobileProgressBars();
+    progressBars.forEach((bar) => {
+      bar.style.width = '0%';
+    });
+    mobileProgressBars.forEach((bar) => {
+      bar.style.width = '0%';
+    });
+
+    // Hide all videos first with instant transition
+    videos.forEach((video, i) => {
+      // Remove any event listeners from all videos to prevent conflicts
+      video.removeEventListener('ended', handleVideoEnd);
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      video.style.opacity = '0';
+      video.style.transition = 'opacity 0ms';
+      video.pause();
+      video.currentTime = 0;
+    });
+
+    // Then show and play the new video
+    const newVideo = videos[index];
+    if (newVideo) {
+      // Ensure it starts from beginning
+      newVideo.currentTime = 0;
+      // Set as current video and add listeners BEFORE showing
+      currentVideo = newVideo;
+      currentIndex = index;
+      currentVideo.addEventListener('ended', handleVideoEnd);
+      currentVideo.addEventListener('loadedmetadata', handleLoadedMetadata);
+      
+      // Check if metadata is already loaded
+      if (currentVideo.duration && !isNaN(currentVideo.duration)) {
+        videoDuration = currentVideo.duration;
+      }
+      
+      // Small delay to ensure previous video is fully hidden, then show new one
+      setTimeout(() => {
+        // Double-check that this is still the current video (prevent race conditions)
+        if (currentVideo !== newVideo || currentIndex !== index) {
+          return;
+        }
+        
+        newVideo.style.transition = 'opacity 300ms';
+        newVideo.style.opacity = '1';
+        newVideo.play().then(() => {
+          // Double-check again after play starts
+          if (currentVideo !== newVideo || currentIndex !== index) {
+            newVideo.pause();
+            isChangingVideo = false;
+            return;
+          }
+          // Start animation after video starts playing
+          if (videoDuration > 0 && progressAnimationFrame === null && currentVideo === newVideo) {
+            animateProgress();
+          }
+          isChangingVideo = false;
+        }).catch(() => {
+          // Handle autoplay restrictions
+          isChangingVideo = false;
+        });
+      }, 10);
+    }
+
+    // Update teasers based on active video index
+    teasers.forEach((teaser, i) => {
+      if (i === index) {
+        // Active teaser
+        teaser.classList.remove('opacity-70');
+        teaser.classList.add('opacity-100');
+      } else {
+        // Inactive teasers
+        teaser.classList.remove('opacity-100');
+        teaser.classList.add('opacity-70');
+      }
+    });
+    
+    // Update mobile progress wrappers to show active state (optional visual enhancement)
+    const mobileWrappers = Array.from(document.querySelectorAll('[data-mobile-progress-wrapper]'));
+    mobileWrappers.forEach((wrapper, i) => {
+      if (i === index) {
+        // Active wrapper - progress bar will fill via JavaScript
+      } else {
+        // Inactive wrapper - just show background line
+      }
+    });
+    
+    // Reset flag after a short delay to allow video to start
+    setTimeout(() => {
+      isChangingVideo = false;
+    }, 50);
+  }
+
+  function nextVideo() {
+    currentIndex = (currentIndex + 1) % videos.length;
+    showVideo(currentIndex);
+  }
+
+  function prevVideo() {
+    currentIndex = (currentIndex - 1 + videos.length) % videos.length;
+    showVideo(currentIndex);
+  }
+
+  if (prevButton) {
+    prevButton.addEventListener('click', prevVideo);
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener('click', nextVideo);
+  }
+
+  // Click on teasers to navigate
+  teasers.forEach((teaser, index) => {
+    teaser.addEventListener('click', () => {
+      currentIndex = index;
+      showVideo(currentIndex);
+    });
+  });
+
+  // Initialize first video
+  showVideo(0);
+</script>
+
+<style>
+  .video-carousel {
+    position: relative;
+  }
+  
+  .project-teaser {
+    scroll-snap-align: start;
+  }
+  
+  #project-teasers {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+

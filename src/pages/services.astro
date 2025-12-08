@@ -1,0 +1,23 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import { getServices } from '../data/services';
+
+const services = getServices();
+---
+
+<MainLayout title="Ydelser - Candello Media" description="Se vores services og hvad vi kan hjælpe jer med">
+  <div class="container mx-auto px-4 py-12">
+    <SectionHeading title="Services" />
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {services.map((service) => (
+        <ServiceCard
+          title={service.title}
+          description={service.description}
+        />
+      ))}
+    </div>
+  </div>
+</MainLayout>
+
