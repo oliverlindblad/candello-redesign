@@ -7,6 +7,9 @@ interface Project {
   slug: string;
   image?: string;
   category?: string;
+  sectionTitle?: string;
+  additionalContent?: string;
+  additionalContentTwo?: string;
 }
 
 interface Props {
@@ -21,6 +24,9 @@ export const defaultProjects: Project[] = [
     slug: 'atriet',
     image: '/images/atriet.webp',
     category: 'Film & foto',
+    sectionTitle: 'Fra rå rammer til digitale fortællinger',
+    additionalContent: 'Alle har set et kontormiljø før, men hvor ofte lægger man egentlig mærke til det? De åbne linjer, og de mennesker, der hver dag fylder rummet med idéer, energi og ambitioner. I Dandy Business Park ønskede vi netop at sætte fokus på alt det, man normalt overser.',
+    additionalContentTwo: 'Vores opgave lød på at udvikle en hjemmeside og indhold, der skulle gøre mere end at dokumentere. Vi skulle visualisere stemningen. De små glimt af kreativitet, ro, fokus og fællesskab, som tilsammen gør Atriet til noget andet end blot endnu et erhvervsområde på landkortet.',
   },
   {
     title: 'Carlsberg byen',
@@ -28,6 +34,9 @@ export const defaultProjects: Project[] = [
     slug: 'carlsberg-byen',
     image: '/images/carlsberg-byen.webp',
     category: 'Dronefilm',
+    sectionTitle: 'Fra rå rammer til digitale fortællinger',
+    additionalContent: 'Vores opgave lød på at udvikle en hjemmeside og indhold, der skulle gøre mere end at dokumentere. Vi skulle visualisere stemningen. De små glimt af kreativitet, ro, fokus og fællesskab, som tilsammen gør Carlsberg byen til noget andet end blot endnu et erhvervsområde på landkortet.',
+    additionalContentTwo: 'Vi indfangede Carlsberg byens rå og moderne arkitektur gennem stemningsfulde kontorbilleder, der viser både mennesker, rytme og rum.',
   },
   {
     title: 'Dusager',
@@ -35,6 +44,9 @@ export const defaultProjects: Project[] = [
     slug: 'dusager',
     image: '/images/dusager.webp',
     category: 'Film & foto',
+    sectionTitle: 'Fra rå rammer til digitale fortællinger',
+    additionalContent: 'Vores opgave lød på at udvikle en hjemmeside og indhold, der skulle gøre mere end at dokumentere. Vi skulle visualisere stemningen. De små glimt af kreativitet, ro, fokus og fællesskab, som tilsammen gør Dusager til noget andet end blot endnu et erhvervsområde på landkortet.',
+    additionalContentTwo: 'Vi indfangede Dusagers arbejdsunivers gennem stemningsfulde kontorbilleder, der viser både mennesker, rytme og rum.',
   },
   {
     title: 'Dandy Business Park',
@@ -42,6 +54,9 @@ export const defaultProjects: Project[] = [
     slug: 'dandy-business-park',
     image: '/images/dandy-business-park.webp',
     category: 'Hjemmeside',
+    sectionTitle: 'Fra rå rammer til digitale fortællinger',
+    additionalContent: 'Alle har set et kontormiljø før, men hvor ofte lægger man egentlig mærke til det? De åbne linjer, og de mennesker, der hver dag fylder rummet med idéer, energi og ambitioner. I Dandy Business Park ønskede vi netop at sætte fokus på alt det, man normalt overser.',
+    additionalContentTwo: 'Vores opgave lød på at udvikle en hjemmeside og indhold, der skulle gøre mere end at dokumentere. Vi skulle visualisere stemningen. De små glimt af kreativitet, ro, fokus og fællesskab, som tilsammen gør Dandy Business Park til noget andet end blot endnu et erhvervsområde på landkortet.',
   },
 ];
 

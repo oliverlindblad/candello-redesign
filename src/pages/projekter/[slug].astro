@@ -17,17 +17,84 @@ if (!project) {
 ---
 
 <MainLayout title={`${project.title} - Projekter - Candello Media`} description={project.description}>
-  <article class="container mx-auto px-4 py-12">
-    {project.image && (
-      <img src={project.image} alt={project.title} class="w-full h-96 object-cover rounded-lg mb-8" />
-    )}
-    <h1 class="text-4xl font-bold mb-4">{project.title}</h1>
-    {project.description && <p class="text-xl text-gray-600 mb-8">{project.description}</p>}
-    
-    <!-- Project content will be added based on Figma design -->
-    <div class="prose max-w-none">
-      <slot />
+  <div class="bg-neutral-dark min-h-screen">
+    <!-- Logo header at top - fixed in viewport -->
+    <div class="fixed top-0 left-0 right-0 z-30">
+      <div class="container mx-auto px-4 pt-2 pb-2 sm:py-8 flex justify-center">
+        <a href="/" class="text-neutral-light text-md lg:text-xl font-heading uppercase mt-3 sm:mt-0">
+          Candello Media
+        </a>
+      </div>
     </div>
-  </article>
-</MainLayout>
 
+   
+
+    <!-- Main Content Container -->
+    <div class="flex flex-col md:flex-row">
+      <!-- Left Column: Fixed Image (60% width on desktop) -->
+      {project.image && (
+        <div class="w-full md:w-[60%] md:fixed md:left-0 md:h-[calc(100vh-5rem)] z-10" style="top: 5rem;">
+          <div class="w-full h-full overflow-hidden md:rounded-tr-lg relative">
+            <img 
+              src={project.image} 
+              alt={project.title} 
+              class="w-full h-full object-cover" 
+            />
+            <div class="absolute inset-0 bg-black/40"></div>
+          </div>
+        </div>
+      )}
+
+      <!-- Right Column: Scrollable Content (40% width on desktop) -->
+      <div class="w-full md:w-[40%] md:ml-[60%] pt-4 relative">
+        <div class="px-4 md:px-8 lg:px-12 py-12 md:py-16">
+          <div class="max-w-2xl mx-auto">
+            <!-- Subtitle -->
+            {project.category && (
+              <p class="text-sm md:text-base text-neutral-grey font-light">
+                {project.category}
+              </p>
+            )}
+
+            <!-- Title and Category -->
+            <div class="mb-4 md:mb-8">
+              <h1 class="text-4xl sm:text-5xl md:text-4xl font-light text-neutral-light leading-tight mb-4">
+                {project.title}
+              </h1>
+            </div>
+
+            <!-- Description -->
+            {project.description && (
+              <div class="mb-8 md:mb-12">
+                <p class="text-base md:text-lg text-neutral-grey leading-relaxed">
+                  {project.additionalContent}
+                </p>
+              </div>
+            )}
+
+            <!-- Section Title -->
+            {project.sectionTitle && (
+              <h2 class="text-2xl md:text-2xl font-light text-neutral-light mb-6 md:mb-6">
+                {project.sectionTitle}
+              </h2>
+            )}
+
+            <!-- Additional Content -->
+            {project.additionalContent && (
+              <div class="mb-8 md:mb-12">
+                <p class="text-base md:text-lg text-neutral-grey leading-relaxed">
+                  {project.additionalContentTwo}
+                </p>
+              </div>
+            )}
+
+            <!-- Project content slot -->
+            <div class="prose prose-invert max-w-none text-neutral-light">
+              <slot />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>
