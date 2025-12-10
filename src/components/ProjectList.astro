@@ -1,29 +1,77 @@
 ---
 import ProjectCard from './ProjectCard.astro';
 
-interface Props {
-  projects?: Array<{
-    title: string;
-    description?: string;
-    image?: string;
-    slug: string;
-  }>;
+interface Project {
+  title: string;
+  description: string;
+  slug: string;
+  image?: string;
+  category?: string;
 }
 
-const { projects = [] } = Astro.props;
+interface Props {
+  projects?: Project[];
+}
+
+// Project data - exported so other files can use it
+export const defaultProjects: Project[] = [
+  {
+    title: 'Atriet',
+    description: 'I Atriets lyse og åbne omgivelser producerede vi en stemningsfuld video, der fremhæver både rummets energi og brandets fortælling',
+    slug: 'atriet',
+    image: '/images/atriet.webp',
+    category: 'Film & foto',
+  },
+  {
+    title: 'Carlsberg byen',
+    description: 'Midt i Carlsberg Byens rå og moderne arkitektur fangede vi stemningen gennem en serie visuelt stærke billeder',
+    slug: 'carlsberg-byen',
+    image: '/images/carlsberg-byen.webp',
+    category: 'Dronefilm',
+  },
+  {
+    title: 'Dusager',
+    description: 'Vi indfangede Dusagers arbejdsunivers gennem stemningsfulde kontorbilleder, der viser både mennesker, rytme og rum',
+    slug: 'dusager',
+    image: '/images/dusager.webp',
+    category: 'Film & foto',
+  },
+  {
+    title: 'Dandy Business Park',
+    description: 'I Dandy Business Park skabte vi visuelle fortællinger, der indfanger parkens dynamiske miljø og inspirerende arkitektur',
+    slug: 'dandy-business-park',
+    image: '/images/dandy-business-park.webp',
+    category: 'Hjemmeside',
+  },
+];
+
+const { projects = defaultProjects } = Astro.props;
 ---
 
-<section class="project-list py-12">
-  <div class="container mx-auto px-4">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {projects.map((project) => (
-        <ProjectCard
-          title={project.title}
-          description={project.description}
-          image={project.image}
-          slug={project.slug}
-        />
-      ))}
+<section class="project-list">
+  <div class="max-w-7xl mx-auto">
+    <div class="space-y-8 md:space-y-12">
+      {Array.from({ length: Math.ceil(projects.length / 2) }).map((_, rowIndex) => {
+        const startIndex = rowIndex * 2;
+        const rowProjects = projects.slice(startIndex, startIndex + 2);
+        const isLastRow = startIndex + 2 >= projects.length;
+        
+        return (
+          <div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+              {rowProjects.map((project) => (
+                <ProjectCard
+                  title={project.title}
+                  description={project.description}
+                  image={project.image}
+                  slug={project.slug}
+                  category={project.category}
+                />
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </div>
   </div>
 </section>

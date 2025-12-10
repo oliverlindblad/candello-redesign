@@ -1,16 +1,15 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
-import { getProject, getProjects } from '../../data/projects';
+import { defaultProjects as projects } from '../../components/ProjectList.astro';
 
 export async function getStaticPaths() {
-  const projects = getProjects();
   return projects.map((project) => ({
     params: { slug: project.slug },
   }));
 }
 
 const { slug } = Astro.params;
-const project = slug ? getProject(slug) : null;
+const project = slug ? projects.find((p) => p.slug === slug) : null;
 
 if (!project) {
   return Astro.redirect('/projekter');

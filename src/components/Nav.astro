@@ -46,7 +46,7 @@ function isActive(path: string): boolean {
           >
             Services
           </a>
-        </div>
+  </div>
         <!-- Second column: 2 links -->
         <div class="flex flex-col space-y-6">
           <a 
@@ -107,7 +107,9 @@ function isActive(path: string): boolean {
 </div>
 
 <!-- Closed state: Oval navigation bar (positioned at bottom center, above overlay) -->
-<div class="fixed bottom-4 md:bottom-32 left-1/2 -translate-x-1/2 z-[1000]">
+<div class={`fixed left-1/2 -translate-x-1/2 z-[1000] ${
+  currentPath === '/' ? 'bottom-4 md:bottom-32' : 'bottom-8 md:bottom-62'
+}`}>
   <nav>
     <div 
       id="nav-bar"
@@ -145,8 +147,8 @@ function isActive(path: string): boolean {
           <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
-    </div>
-  </nav>
+  </div>
+</nav>
 </div>
 
 <script>
@@ -170,39 +172,39 @@ function isActive(path: string): boolean {
   function toggleMenu() {
     if (!burgerButton || !menuOverlay || !burgerIcon || !closeIcon) return;
     
-    isOpen = !isOpen;
-    
-    if (isOpen) {
+      isOpen = !isOpen;
+      
+      if (isOpen) {
       // Open overlay with fade-in transition
-      menuOverlay.classList.remove('hidden');
-      setTimeout(() => {
+        menuOverlay.classList.remove('hidden');
+        setTimeout(() => {
         if (menuOverlay) {
           menuOverlay.classList.remove('opacity-0');
           menuOverlay.classList.add('opacity-100');
         }
-      }, 10);
+        }, 10);
       // Switch to close icon
-      burgerIcon.classList.add('hidden');
-      closeIcon.classList.remove('hidden');
+        burgerIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
       // Keep background visible when menu is open
       burgerButton.classList.add('bg-brand-green/60');
-      burgerButton.setAttribute('aria-expanded', 'true');
-    } else {
+        burgerButton.setAttribute('aria-expanded', 'true');
+      } else {
       // Close overlay with fade-out transition
-      menuOverlay.classList.remove('opacity-100');
-      menuOverlay.classList.add('opacity-0');
-      setTimeout(() => {
+        menuOverlay.classList.remove('opacity-100');
+        menuOverlay.classList.add('opacity-0');
+        setTimeout(() => {
         if (menuOverlay) {
           menuOverlay.classList.add('hidden');
         }
-      }, 300);
+        }, 300);
       // Switch back to burger icon
-      burgerIcon.classList.remove('hidden');
-      closeIcon.classList.add('hidden');
+        burgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
       // Remove background when menu is closed
       burgerButton.classList.remove('bg-brand-green/60');
-      burgerButton.setAttribute('aria-expanded', 'false');
-    }
+        burgerButton.setAttribute('aria-expanded', 'false');
+      }
     
     // Update hover states when menu state changes
     updateHoverStates();
@@ -220,10 +222,10 @@ function isActive(path: string): boolean {
       link.addEventListener('click', () => {
         if (isOpen) {
           toggleMenu();
-        }
+      }
       });
     });
-    
+
     // Close menu on escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && isOpen) {

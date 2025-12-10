@@ -1,0 +1,291 @@
+---
+// Testimonial component with interactive company logos
+interface Testimonial {
+  company: string;
+  logo?: string;
+  quote: string;
+  author: string;
+  title: string;
+}
+
+const testimonials: Testimonial[] = [
+  {
+    company: 'KOMPROMENT',
+    logo: '/images/komproment-logo.png',
+    quote: 'Samarbejdet var struktureret, kreativt og fyldt med faglig sparring, som løftede projektet markant. Vi glæder os allerede til næste projekt"',
+    author: 'Mads Holm',
+    title: 'Komproment, CEO',
+  },
+  {
+    company: 'CHRISTENSEN & CO',
+    logo: '/images/christensen-co-logo.png',
+    quote: 'Candello Media leverede et fremragende resultat, der overgik vores forventninger. Deres professionelle tilgang og kreative løsninger gjorde en stor forskel.',
+    author: 'Lars Christensen',
+    title: 'Christensen & Co, CEO',
+  },
+  {
+    company: 'V. MEYER',
+    logo: '/images/v-meyer-Logo.png',
+    quote: 'Vi er meget tilfredse med det samarbejde vi har haft med Candello Media. De forstod vores vision og leverede præcis det, vi havde brug for.',
+    author: 'Peter Søgaard',
+    title: 'V. Meyer, Direktør',
+  },
+  {
+    company: 'HUSTØMRERNE',
+    logo: '/images/hustoemrerne-logo.png',
+    quote: 'Candello Media hjalp os med at skabe en stærk digital tilstedeværelse. Deres ekspertise og engagement var af højeste kvalitet.',
+    author: 'Anders Nielsen',
+    title: 'Hustømrerne, Marketingchef',
+  },
+];
+
+let activeIndex = 0;
+---
+
+<section class="testimonial-section w-full pb-52 flex justify-center">
+  <div class="max-w-7xl px-4 w-full">
+    <!-- Title -->
+    <h2 class="text-4xl md:text-5xl font-light text-neutral-light text-center mb-8 md:mb-4">
+      Gør som de andre
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-24">
+      <!-- Left: Company Logos (Desktop Only) -->
+      <div class="hidden md:grid grid-cols-2 gap-10">
+        {testimonials.map((testimonial, index) => (
+          <button
+            class={`testimonial-logo block text-left py-4 transition-colors ${
+              index === activeIndex
+                ? 'text-neutral-light'
+                : 'text-neutral-grey hover:text-neutral-light'
+            }`}
+            data-index={index}
+          >
+            <div class={`inline-block border-b transition-colors ${
+              index === activeIndex 
+                ? 'border-neutral-light' 
+                : 'border-neutral-light/30 hover:border-neutral-light'
+            }`}>
+              {testimonial.logo ? (
+                <img 
+                  src={testimonial.logo} 
+                  alt={testimonial.company}
+                  class={`h-24 w-auto object-contain transition-all ${
+                    index === activeIndex ? 'logo-active' : 'logo-inactive'
+                  }`}
+                />
+              ) : (
+                <div class="text-2xl md:text-3xl font-light uppercase">
+                  {testimonial.company}
+                </div>
+              )}
+            </div>
+          </button>
+        ))}
+      </div>
+
+      <!-- Testimonial Content -->
+      <div class="flex flex-col justify-center md:col-span-1 relative">
+        <!-- Mobile Navigation Arrows - aligned with quotation mark -->
+        <div class="absolute -top-2 right-0 flex gap-2 md:hidden z-10">
+          <button id="prev-testimonial" class="w-10 h-10 rounded-full bg-brand-green flex items-center justify-center hover:opacity-80 transition-opacity">
+            <svg class="w-5 h-5 text-neutral-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button id="next-testimonial" class="w-10 h-10 rounded-full bg-brand-green flex items-center justify-center hover:opacity-80 transition-opacity">
+            <svg class="w-5 h-5 text-neutral-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+        <div id="testimonial-content" class="space-y-6">
+          <!-- Quote mark above text on both mobile and desktop -->
+          <div>
+            <img src="/images/quotation-marks.svg" alt="" class="w-14 h-auto text-neutral-light mb-4 md:w-24 md:mb-6" />
+            <p class="text-lg md:text-xl text-neutral-light leading-relaxed">
+              {testimonials[activeIndex].quote}
+            </p>
+          </div>
+          <!-- Mobile: Author info and logo horizontally aligned -->
+          <div class="flex items-center justify-between md:block">
+            <div class="space-y-1">
+              <p class="text-base md:text-lg text-neutral-light font-medium">
+                {testimonials[activeIndex].author}
+              </p>
+              <p class="text-sm md:text-base text-neutral-grey">
+                {testimonials[activeIndex].title}
+              </p>
+            </div>
+            <!-- Mobile: Company Logo aligned horizontally -->
+            {testimonials[activeIndex].logo && (
+              <div class="md:hidden">
+                <img 
+                  src={testimonials[activeIndex].logo} 
+                  alt={testimonials[activeIndex].company}
+                  class="h-12 w-auto object-contain logo-active"
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  let currentIndex = 0;
+  const logos = document.querySelectorAll('.testimonial-logo');
+  const testimonialContent = document.getElementById('testimonial-content');
+  
+  // Testimonials data for JavaScript
+  const testimonialsData = [
+    {
+      company: 'KOMPROMENT',
+      logo: '/images/komproment-logo.png',
+      quote: 'Samarbejdet var struktureret, kreativt og fyldt med faglig sparring, som løftede projektet markant. Vi glæder os allerede til næste projekt"',
+      author: 'Mads Holm',
+      title: 'Komproment, CEO',
+    },
+    {
+      company: 'CHRISTENSEN & CO',
+      logo: '/images/christensen-co-logo.png',
+      quote: 'Candello Media leverede et fremragende resultat, der overgik vores forventninger. Deres professionelle tilgang og kreative løsninger gjorde en stor forskel.',
+      author: 'Lars Christensen',
+      title: 'Christensen & Co, CEO',
+    },
+    {
+      company: 'V. MEYER',
+      logo: '/images/v-meyer-Logo.png',
+      quote: 'Vi er meget tilfredse med det samarbejde vi har haft med Candello Media. De forstod vores vision og leverede præcis det, vi havde brug for.',
+      author: 'Peter Søgaard',
+      title: 'V. Meyer, Direktør',
+    },
+    {
+      company: 'HUSTØMRERNE',
+      logo: '/images/hustoemrerne-logo.png',
+      quote: 'Candello Media hjalp os med at skabe en stærk digital tilstedeværelse. Deres ekspertise og engagement var af højeste kvalitet.',
+      author: 'Anders Nielsen',
+      title: 'Hustømrerne, Marketingchef',
+    },
+  ];
+  
+  // Update testimonial content
+  // @ts-ignore
+  function updateTestimonial(index) {
+    currentIndex = index;
+    
+    // Update active state
+    logos.forEach((logo, i) => {
+      const img = logo.querySelector('img');
+      const borderDiv = logo.querySelector('div[class*="border-b"]');
+      if (i === index) {
+        logo.classList.remove('text-neutral-grey');
+        logo.classList.add('text-neutral-light');
+        if (img) {
+          img.classList.remove('logo-inactive');
+          img.classList.add('logo-active');
+        }
+        if (borderDiv) {
+          borderDiv.classList.remove('border-neutral-light/30');
+          borderDiv.classList.add('border-neutral-light');
+        }
+      } else {
+        logo.classList.remove('text-neutral-light');
+        logo.classList.add('text-neutral-grey');
+        if (img) {
+          img.classList.remove('logo-active');
+          img.classList.add('logo-inactive');
+        }
+        if (borderDiv) {
+          borderDiv.classList.remove('border-neutral-light');
+          borderDiv.classList.add('border-neutral-light/30');
+        }
+      }
+    });
+    
+    // Update content with fade effect
+    if (testimonialContent) {
+      testimonialContent.style.opacity = '0';
+      setTimeout(() => {
+        const testimonial = testimonialsData[index];
+        if (testimonialContent) {
+          const logoHtml = testimonial.logo 
+            ? `<div class="md:hidden"><img src="${testimonial.logo}" alt="${testimonial.company}" class="h-12 w-auto object-contain" style="filter: brightness(0) invert(1); opacity: 1;" /></div>`
+            : '';
+          
+          testimonialContent.innerHTML = `
+            <div>
+              <img src="/images/quotation-marks.svg" alt="" class="w-14 h-auto mb-4 md:w-24 md:mb-6" />
+              <p class="text-lg md:text-xl text-neutral-light leading-relaxed">${testimonial.quote}</p>
+            </div>
+            <div class="flex items-center justify-between md:block">
+              <div class="space-y-1">
+                <p class="text-base md:text-lg text-neutral-light font-medium">${testimonial.author}</p>
+                <p class="text-sm md:text-base text-neutral-grey">${testimonial.title}</p>
+              </div>
+              ${logoHtml}
+            </div>
+          `;
+          testimonialContent.style.opacity = '1';
+        }
+      }, 150);
+    }
+  }
+  
+  // Add hover listeners (desktop only)
+  logos.forEach((logo, index) => {
+    logo.addEventListener('mouseenter', () => {
+      updateTestimonial(index);
+    });
+  });
+  
+  // Mobile navigation
+  const prevButton = document.getElementById('prev-testimonial');
+  const nextButton = document.getElementById('next-testimonial');
+  
+  if (prevButton) {
+    prevButton.addEventListener('click', () => {
+      const newIndex = currentIndex > 0 ? currentIndex - 1 : testimonialsData.length - 1;
+      updateTestimonial(newIndex);
+    });
+  }
+  
+  if (nextButton) {
+    nextButton.addEventListener('click', () => {
+      const newIndex = currentIndex < testimonialsData.length - 1 ? currentIndex + 1 : 0;
+      updateTestimonial(newIndex);
+    });
+  }
+  
+  // Initialize with transition
+  if (testimonialContent) {
+    testimonialContent.style.transition = 'opacity 0.3s ease-in-out';
+  }
+  
+  // Initialize first testimonial
+  updateTestimonial(0);
+</script>
+
+<style>
+  .testimonial-logo {
+    cursor: pointer;
+  }
+  
+  .testimonial-logo img.logo-active {
+    filter: brightness(0) invert(1);
+    opacity: 1;
+  }
+  
+  .testimonial-logo img.logo-inactive {
+    filter: brightness(0) invert(1);
+    opacity: 0.4;
+  }
+  
+  .testimonial-logo:hover img.logo-inactive {
+    filter: brightness(0) invert(1);
+    opacity: 1;
+  }
+</style>
+
