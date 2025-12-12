@@ -100,9 +100,10 @@ let activeIndex = 0;
           </button>
         </div>
         <div id="testimonial-content" class="space-y-6">
+
           <!-- Quote mark above text on both mobile and desktop -->
           <div>
-            <img src="/images/quotation-marks.svg" alt="" class="w-14 h-auto text-neutral-light mb-4 md:w-24 md:mb-6" />
+            <img src="/images/quotation-marks.svg" alt="" class="w-10 h-auto text-neutral-light mb-4 md:w-18 md:mb-6" />
             <p class="text-lg md:text-xl text-neutral-light leading-relaxed">
               {testimonials[activeIndex].quote}
             </p>
@@ -217,7 +218,7 @@ let activeIndex = 0;
           
           testimonialContent.innerHTML = `
             <div>
-              <img src="/images/quotation-marks.svg" alt="" class="w-14 h-auto mb-4 md:w-24 md:mb-6" />
+              <img src="/images/quotation-marks.svg" alt="" class="w-14 h-auto mb-4 md:w-18 md:mb-6" />
               <p class="text-lg md:text-xl text-neutral-light leading-relaxed">${testimonial.quote}</p>
             </div>
             <div class="flex items-center justify-between md:block">

@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
 import { defaultProjects as projects } from '../../components/ProjectList.astro';
+import Button from '../../components/Button.astro';
 
 export async function getStaticPaths() {
   return projects.map((project) => ({
@@ -18,8 +19,8 @@ if (!project) {
 
 <MainLayout title={`${project.title} - Projekter - Candello Media`} description={project.description}>
   <div class="bg-neutral-dark min-h-screen">
-    <!-- Logo header at top - fixed in viewport -->
-    <div class="fixed top-0 left-0 right-0 z-30">
+    <!-- Logo header at top - fixed in viewport on desktop only -->
+    <div class="relative md:fixed md:top-0 md:left-0 md:right-0 z-30">
       <div class="container mx-auto px-4 pt-2 pb-2 sm:py-8 flex justify-center">
         <a href="/" class="text-neutral-light text-md lg:text-xl font-heading uppercase mt-3 sm:mt-0">
           Candello Media
@@ -31,28 +32,39 @@ if (!project) {
 
     <!-- Main Content Container -->
     <div class="flex flex-col md:flex-row">
-      <!-- Left Column: Fixed Image (60% width on desktop) -->
-      {project.image && (
-        <div class="w-full md:w-[60%] md:fixed md:left-0 md:h-[calc(100vh-5rem)] z-10" style="top: 5rem;">
-          <div class="w-full h-full overflow-hidden md:rounded-tr-lg relative">
-            <img 
-              src={project.image} 
-              alt={project.title} 
-              class="w-full h-full object-cover" 
-            />
+      <!-- Left Column: Fixed Image/Video (60% width on desktop) -->
+      {(project.video || project.image) && (
+        <div class="w-full md:w-[60%] pt-10 md:pt-0 md:fixed md:left-0 md:h-[calc(100vh-6rem)] z-10" style="top: 6rem;">
+          <div class="w-full h-[40vh] md:h-full overflow-hidden md:rounded-tr-lg relative">
+            {project.video ? (
+              <video 
+                src={project.video} 
+                autoplay
+                loop
+                muted
+                playsinline
+                class="w-full h-full object-cover" 
+              />
+            ) : project.image ? (
+              <img 
+                src={project.image} 
+                alt={project.title} 
+                class="w-full h-full object-cover" 
+              />
+            ) : null}
             <div class="absolute inset-0 bg-black/40"></div>
           </div>
         </div>
       )}
 
       <!-- Right Column: Scrollable Content (40% width on desktop) -->
-      <div class="w-full md:w-[40%] md:ml-[60%] pt-4 relative">
+      <div class="w-full md:w-[40%] md:ml-[60%] pt-0 md:pt-8 relative">
         <div class="px-4 md:px-8 lg:px-12 py-12 md:py-16">
           <div class="max-w-2xl mx-auto">
             <!-- Subtitle -->
-            {project.category && (
-              <p class="text-sm md:text-base text-neutral-grey font-light">
-                {project.category}
+            {project.subtitle && (
+              <p class="text-xs md:text-xs text-neutral-grey font-light uppercase tracking-wide mb-2">
+                {project.subtitle}
               </p>
             )}
 
@@ -66,7 +78,7 @@ if (!project) {
             <!-- Description -->
             {project.description && (
               <div class="mb-8 md:mb-12">
-                <p class="text-base md:text-lg text-neutral-grey leading-relaxed">
+                <p class="text-base md:text-md text-neutral-grey leading-relaxed">
                   {project.additionalContent}
                 </p>
               </div>
@@ -82,15 +94,72 @@ if (!project) {
             <!-- Additional Content -->
             {project.additionalContent && (
               <div class="mb-8 md:mb-12">
-                <p class="text-base md:text-lg text-neutral-grey leading-relaxed">
+                <p class="text-base md:text-md text-neutral-grey leading-relaxed">
                   {project.additionalContentTwo}
                 </p>
               </div>
             )}
 
+            <!-- Content Image -->
+            {project.contentImage && (
+              <div class="mb-8 md:mb-12 relative rounded-md overflow-hidden">
+                <img 
+                  src={project.contentImage} 
+                  alt={project.title} 
+                  class="w-full h-[40vh] object-cover"
+                />
+                <div class="absolute inset-0 bg-black/40"></div>
+              </div>
+            )}
+
+            {project.sectionTitleTwo && (
+              <h2 class="text-2xl md:text-2xl font-light text-neutral-light mb-6 md:mb-6">
+                {project.sectionTitleTwo}
+              </h2>
+            )}
+
+            {project.additionalContentThree && (
+              <div class="mb-8 md:mb-12">
+                <p class="text-base md:text-md text-neutral-grey leading-relaxed">
+                  {project.additionalContentThree}
+                </p>
+              </div>
+            )}
+
+            <!-- Project Info Section -->
+            <div class="mb-8 md:mb-12">
+              <!-- Top divider -->
+              <div class="w-full border-t border-neutral-light/30 mb-4"></div>
+              
+              <!-- Kunde (Customer) -->
+              <div class="flex justify-between items-center py-2">
+                <span class="text-base md:text-xl text-neutral-grey">Kunde</span>
+                <span class="text-base md:text-xl text-neutral-grey">{project.title}</span>
+              </div>
+              
+              <!-- Middle divider -->
+              <div class="w-full border-t border-neutral-light/30 my-4"></div>
+              
+              <!-- Service -->
+              <div class="flex justify-between items-center py-2">
+                <span class="text-base md:text-xl text-neutral-grey">Service</span>
+                <span class="text-base md:text-xl font-heading text-neutral-grey">{project.category || 'N/A'}</span>
+              </div>
+              
+              <!-- Bottom divider -->
+              <div class="w-full border-t border-neutral-light/30 mt-4 mb-6"></div>
+              
+              <!-- Kontakt os button -->
+              <div class="flex justify-start md:justify-end pb-8 md:pb-0">
+                <Button href="/kontakt" variant="primary" class="w-full md:w-auto">
+                  Kontakt os
+                </Button>
+              </div>
+            </div>
+
             <!-- Project content slot -->
             <div class="prose prose-invert max-w-none text-neutral-light">
-              <slot />
+      <slot />
             </div>
           </div>
         </div>

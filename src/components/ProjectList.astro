@@ -6,10 +6,15 @@ interface Project {
   description: string;
   slug: string;
   image?: string;
+  video?: string;
   category?: string;
+  subtitle?: string;
   sectionTitle?: string;
+  sectionTitleTwo?: string;
   additionalContent?: string;
   additionalContentTwo?: string;
+  additionalContentThree?: string;
+  contentImage?: string;
 }
 
 interface Props {
@@ -18,45 +23,65 @@ interface Props {
 
 // Project data - exported so other files can use it
 export const defaultProjects: Project[] = [
+{
+  title: 'Atriet',
+  description: 'Et foto-projekt, der dokumenterer opførelsen af Atriet – 206 ungdomsboliger – med fokus på arkitektur, proces og mennesket bag byggeriet.',
+  slug: 'atriet',
+  image: '/images/atriet.webp',
+  category: 'Foto',
+  subtitle: '206 ungdomsboliger i udvikling',
+  sectionTitle: 'Byggeri fortalt gennem billeder',
+  sectionTitleTwo: 'Dokumentation med blik for detaljer',
+  additionalContent: 'Atriet er et større boligprojekt opført af Nordstern med fokus på funktionelle og moderne rammer for unge. Foto-projektet havde til formål at dokumentere byggeriets udvikling og formidle den proces, der ligger bag opførelsen af de 206 ungdomsboliger.',
+  additionalContentTwo: 'Gennem billeder fra byggepladsen har vi arbejdet med at indfange både helheden og detaljerne – materialer, strukturer og arbejdssituationer – for at skabe en visuel fortælling om byggeriets kompleksitet og fremdrift.',
+  additionalContentThree: 'Billedmaterialet anvendes i Nordsterns digitale kommunikation og fungerer som dokumentation og branding, hvor kvalitet, håndværk og skala formidles på en ærlig og professionel måde.',
+  contentImage: '/images/atriet-2.webp'
+},
   {
-    title: 'Atriet',
-    description: 'I Atriets lyse og åbne omgivelser producerede vi en stemningsfuld video, der fremhæver både rummets energi og brandets fortælling',
-    slug: 'atriet',
-    image: '/images/atriet.webp',
-    category: 'Film & foto',
-    sectionTitle: 'Fra rå rammer til digitale fortællinger',
-    additionalContent: 'Alle har set et kontormiljø før, men hvor ofte lægger man egentlig mærke til det? De åbne linjer, og de mennesker, der hver dag fylder rummet med idéer, energi og ambitioner. I Dandy Business Park ønskede vi netop at sætte fokus på alt det, man normalt overser.',
-    additionalContentTwo: 'Vores opgave lød på at udvikle en hjemmeside og indhold, der skulle gøre mere end at dokumentere. Vi skulle visualisere stemningen. De små glimt af kreativitet, ro, fokus og fællesskab, som tilsammen gør Atriet til noget andet end blot endnu et erhvervsområde på landkortet.',
-  },
-  {
-    title: 'Carlsberg byen',
-    description: 'Midt i Carlsberg Byens rå og moderne arkitektur fangede vi stemningen gennem en serie visuelt stærke billeder',
-    slug: 'carlsberg-byen',
-    image: '/images/carlsberg-byen.webp',
-    category: 'Dronefilm',
-    sectionTitle: 'Fra rå rammer til digitale fortællinger',
-    additionalContent: 'Vores opgave lød på at udvikle en hjemmeside og indhold, der skulle gøre mere end at dokumentere. Vi skulle visualisere stemningen. De små glimt af kreativitet, ro, fokus og fællesskab, som tilsammen gør Carlsberg byen til noget andet end blot endnu et erhvervsområde på landkortet.',
-    additionalContentTwo: 'Vi indfangede Carlsberg byens rå og moderne arkitektur gennem stemningsfulde kontorbilleder, der viser både mennesker, rytme og rum.',
-  },
-  {
-    title: 'Dusager',
-    description: 'Vi indfangede Dusagers arbejdsunivers gennem stemningsfulde kontorbilleder, der viser både mennesker, rytme og rum',
-    slug: 'dusager',
-    image: '/images/dusager.webp',
-    category: 'Film & foto',
-    sectionTitle: 'Fra rå rammer til digitale fortællinger',
-    additionalContent: 'Vores opgave lød på at udvikle en hjemmeside og indhold, der skulle gøre mere end at dokumentere. Vi skulle visualisere stemningen. De små glimt af kreativitet, ro, fokus og fællesskab, som tilsammen gør Dusager til noget andet end blot endnu et erhvervsområde på landkortet.',
-    additionalContentTwo: 'Vi indfangede Dusagers arbejdsunivers gennem stemningsfulde kontorbilleder, der viser både mennesker, rytme og rum.',
-  },
+  title: 'Carlsberg Byen',
+  description: 'En stemningsfuld dronefilm, der formidler Carlsberg Byens arkitektur, skala og urbane liv set fra luften.',
+  slug: 'carlsberg-byen',
+  image: '/images/carlsberg-byen.webp',
+  video: '/videos/carlsberg-byen.mp4',
+  category: 'Dronefilm',
+  subtitle: 'Byens arkitektur fortalt fra luften',
+  sectionTitle: 'Et nyt perspektiv på et levende byområde',
+  sectionTitleTwo: 'Visuel storytelling med bevægelse og overblik',
+  additionalContent: 'Med dronefilm over Carlsberg Byen ønskede vi at skabe et visuelt overblik, der viser områdets særlige sammenspil mellem historiske bygninger og moderne arkitektur. Set fra luften træder strukturer, linjer og byens rytme tydeligere frem.',
+  additionalContentTwo: 'Droneoptagelserne er planlagt med fokus på rolige bevægelser, klare kompositioner og naturligt lys, hvilket skaber en filmisk oplevelse, der inviterer seeren til at opleve bydelen fra et nyt perspektiv.',
+  additionalContentThree: 'Resultatet er en dronefilm, der kan anvendes i digital kommunikation og branding, hvor Carlsberg Byen præsenteres som et markant, moderne og dynamisk byområde med en stærk visuel identitet.',
+  contentImage: '/images/carlsberg-byen.webp'
+}
+,
+{
+  title: 'Hotel Aurelia',
+  description: 'Et foto- og filmprojekt for et luksushotel, hvor visuel storytelling bruges til at formidle stemning, eksklusivitet og oplevelsen af opholdet.',
+  slug: 'hotel-aurelia',
+  image: '/images/hotel-aurelia.webp',
+  video: '/videos/hotel-aurelia.mp4',
+  category: 'Foto & Film',
+  subtitle: 'Luksus, ro og æstetik i fokus',
+  sectionTitle: 'En sanselig fortælling om luksus',
+  sectionTitleTwo: 'Visuelt indhold, der skaber forventning',
+  additionalContent: 'Hotel Aurelia er et eksklusivt boutiquehotel, hvor detaljerne er i centrum, og oplevelsen starter længe før gæsten ankommer. Projektets mål var at indfange hotellets særlige atmosfære gennem foto og film, med fokus på ro, kvalitet og æstetik.',
+  additionalContentTwo: 'Gennem stemningsfulde billeder og filmiske sekvenser arbejdede vi med lys, komposition og bevægelse for at fremhæve hotellets interiør, arkitektur og omgivelser. Indholdet er skabt til at give seeren en fornemmelse af opholdet og invitere dem indenfor.',
+  additionalContentThree: 'Det visuelle materiale anvendes i hotellets digitale kommunikation og fungerer som et centralt element i brandets fortælling, hvor luksus, nærvær og kvalitet formidles på en sammenhængende og eksklusiv måde.',
+  contentImage: '/images/hotel-aurelia.webp'
+}
+,
   {
     title: 'Dandy Business Park',
     description: 'I Dandy Business Park skabte vi visuelle fortællinger, der indfanger parkens dynamiske miljø og inspirerende arkitektur',
     slug: 'dandy-business-park',
     image: '/images/dandy-business-park.webp',
     category: 'Hjemmeside',
+    subtitle: 'En moderne virksomhed i byggebranchen',
     sectionTitle: 'Fra rå rammer til digitale fortællinger',
+    sectionTitleTwo: 'En visuel identitet med handling bag',
     additionalContent: 'Alle har set et kontormiljø før, men hvor ofte lægger man egentlig mærke til det? De åbne linjer, og de mennesker, der hver dag fylder rummet med idéer, energi og ambitioner. I Dandy Business Park ønskede vi netop at sætte fokus på alt det, man normalt overser.',
     additionalContentTwo: 'Vores opgave lød på at udvikle en hjemmeside og indhold, der skulle gøre mere end at dokumentere. Vi skulle visualisere stemningen. De små glimt af kreativitet, ro, fokus og fællesskab, som tilsammen gør Dandy Business Park til noget andet end blot endnu et erhvervsområde på landkortet.',
+    additionalContentThree: 'Hjemmesiden er en del af et større strategisk løft, hvor Dandy Business Park ønsker at styrke deres fortælling udadtil: at de ikke bare tilbyder arbejdspladser, men et miljø, der skaber rammer for innovation og vækst.',
+    contentImage: '/images/dandys-single-image.png',
   },
 ];
 
