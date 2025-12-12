@@ -1,0 +1,278 @@
+---
+import Button from './Button.astro';
+
+interface ServiceItem {
+  name: string;
+  description: string;
+}
+
+interface MediaItem {
+  type: 'image' | 'video';
+  src: string;
+}
+
+interface Service {
+  title: string;
+  description: string;
+  services: ServiceItem[];
+  media: MediaItem[];
+  buttonText: string;
+}
+
+const services: Service[] = [
+  {
+    title: 'Indhold',
+    description: 'Candello Media er eksperter i videofilm. Det er ekstremt populært og fungerer i jeres markedsføring  perfekt til at fortælle om jeres virksomhed, jeres værdier, jeres produkt.',
+    services: [
+      {
+        name: 'Film & fotos',
+        description: 'Film & fotos er Candello Media eksperter i og anbefaler i langt de fleste tilfælde at bruge lige netop dette medie, da det er ekstremt populært og fungerer perfekt til at fange interesse.'
+      },
+      {
+        name: 'Dronefilm',
+        description: 'Dronefilm giver en unik mulighed for at vise jeres arbejde fra en anden vinkel end man normalt ser. Dette kan være med til at skabe en mere interessant og engagerende oplevelse for nuværende og potentielle kunder, da det giver en god forståelse af, hvad I som virksomhed har at tilbyde.'
+      },
+      {
+        name: 'Produkt- & virksomhedsfilm',
+        description: 'Produktfotos er altafgørende, når man sælger noget eller viser det frem online. Nogen gange kan det dog være svært at danne sig et fuldstændigt indtryk af et produkt ud fra enkelte fotografier alene. Derfor har mange virksomheder valgt at investere i professionelle produktfilm, der kan give en mere dybdegående forståelse af produktet.'
+      }
+    ],
+    media: [
+      { type: 'video', src: '/videos/hvid-bygning.mp4' },
+      { type: 'image', src: '/images/hotel-aurelia.webp' }
+    ],
+    buttonText: 'Kontakt os om film og foto'
+  },
+  {
+    title: 'Digital',
+    description: 'Candello Media tilbyder professionel hjemmesidedesign, der passer til jeres behov.',
+    services: [
+      {
+        name: 'Hjemmeside',
+        description: 'Candello Media tilbyder professionel hjemmesidedesign, der passer til jeres behov. Typisk i kombination med professionelle film om din virksomhed, projekter, produkter eller andet, kan vi levere en flot og effektiv hjemmeside.'
+      },
+      {
+        name: 'WordPress',
+        description: 'Vi specialiserer os i at arbejde med WordPress, som er den mest populære standard inden for hjemmesideopbygning.'
+      },
+      {
+        name: 'Hosting',
+        description: 'Vi sørger for stabil, sikker og skalerbar hosting, så dit website altid performer optimalt. Med løbende overvågning, automatisk backup og høj oppetid får du en driftssikker løsning, der bare virker, hver dag.'
+      }
+    ],
+    media: [
+      { type: 'image', src: '/images/soegaard.webp' },
+      { type: 'image', src: '/images/v-meyer.webp' }
+    ],
+    buttonText: 'Kontakt os om jeres hjemmeside'
+  },
+  {
+    title: 'Marketing',
+    description: 'Du finder snart ikke en dansker, som ikke er på de sociale medier. Derfor er det naturligt, at markedsføring på de sociale medier er eksploderet de seneste par år. Vi kan hjælpe fra start til slut.',
+    services: [
+      {
+        name: 'SoMe Marketing',
+        description: 'Du finder snart ikke en dansker, som ikke er på de sociale medier. Derfor er det naturligt, at markedsføring på de sociale medier er eksploderet de seneste par år. Vi kan hjælpe fra start til slut, med at sætte jeres LinkedIn profil op, oprette kampagner og efterfølgende måle på statistikken, så vi optimerer det bedst muligt fremadrettet.'
+      },
+      {
+        name: 'Google Ads',
+        description: 'Hos Candello Media har vi stor erfaring med at oprette og administrere effektive Google Ads-kampagner. Vi vil være med jer hele vejen. Lige fra oprettelsen af jeres Google Ads konto, oprettelsen af kampagner, udformning af tekster til analyse af data. Vi analyserer branchen og justerer jeres mål, for at sikre, at jeres skræddersyede kampagne får bedst mulig succes.'
+      },
+      {
+        name: 'PPC',
+        description: 'PPC (pay-per-click) og sociale medier marketing hænger tæt sammen og kan være en effektiv løsning, især på søgemaskinen Google. Vi tilbyder en “cost-benefit” analyse af de mest populære søgeord inden for din branche for at sikre, at du får den største “return on investment”. Vores analyse hjælper dig med at udnytte dit budget på den mest effektive måde.'
+      }
+    ],
+    media: [
+      { type: 'image', src: '/images/dusager-2.webp' },
+      { type: 'image', src: '/images/some.webp' }
+    ],
+    buttonText: 'Kontakt os om markedsføring'
+  }
+];
+---
+
+<div class="space-y-0">
+  {services.map((service, index) => (
+    <>
+      <!-- Divider line (except before first section) -->
+      {index > 0 && (
+        <div class="w-full border-t border-neutral-light/30 my-16 md:my-16"></div>
+      )}
+
+      <!-- Service Section -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 py-12 md:py-12">
+        <!-- Left Column: Title, Description, Button -->
+        <div class="flex flex-col justify-start md:sticky md:top-8 md:self-start md:max-w-lg">
+          <h2 class="text-3xl md:text-2xl lg:text-4xl text-neutral-light font-light mb-8 md:mb-8">
+            {service.title}
+          </h2>
+          <p class="text-base md:text-lg text-neutral-grey leading-relaxed mb-8 md:mb-8">
+            {service.description}
+          </p>
+          <div class="w-full md:w-auto">
+            <Button href="/kontakt" variant="primary" class="!block !w-full py-4 md:!inline-block md:!w-auto">
+              {service.buttonText}
+            </Button>
+          </div>
+        </div>
+
+        <!-- Right Column: Service Options and Images -->
+        <div class="flex flex-col gap-8 md:gap-6">
+          
+          <!-- Expandable Service Accordions -->
+          <div class="flex flex-col gap-4 md:gap-3">
+            {service.services.map((serviceItem, itemIndex) => (
+              <div class="service-accordion backdrop-blur-md bg-neutral-light/5 rounded-sm overflow-hidden relative">
+                <button
+                  class="service-button w-full text-left text-neutral-light px-4 py-6 flex items-center justify-between"
+                  data-service={serviceItem.name.toLowerCase().replace(/\s+/g, '-')}
+                >
+                  <span class="text-lg md:text-xl font-light">{serviceItem.name}</span>
+                  <div class="chevron-wrapper w-8 h-8 bg-transparent border border-neutral-grey rounded-full flex items-center justify-center hover:bg-brand-green/60 hover:border-brand-green/60 transition-all duration-300">
+                    <svg
+                      class="w-4 h-4 text-neutral-light transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </button>
+                <div class="service-content">
+                
+                  <p class="text-md md:text-lg text-neutral-grey leading-relaxed">
+                    {serviceItem.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Media Grid -->
+          <div class="grid grid-cols-2 gap-4 mt-4">
+            {service.media.map((mediaItem, mediaIndex) => (
+              <div class="relative overflow-hidden rounded-sm aspect-square">
+                {mediaItem.type === 'video' ? (
+                  <video
+                    src={mediaItem.src}
+                    class="w-full h-full object-cover"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <img
+                    src={mediaItem.src}
+                    alt={`${service.title} illustration ${mediaIndex + 1}`}
+                    class="w-full h-full object-cover"
+                  />
+                )}
+                <div class="absolute inset-0 bg-black/40"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  ))}
+</div>
+
+<script>
+  // Handle expandable service accordions
+  document.querySelectorAll('.service-button').forEach((button) => {
+    button.addEventListener('click', () => {
+      const accordion = button.closest('.service-accordion') as HTMLElement;
+      const content = accordion?.querySelector('.service-content') as HTMLElement;
+      const chevronWrapper = button.querySelector('.chevron-wrapper');
+      const chevron = chevronWrapper?.querySelector('svg') as SVGElement;
+      
+      if (!accordion || !content) return;
+      
+      // Toggle active state
+      const isActive = accordion.classList.contains('active');
+      
+      if (isActive) {
+        // Collapse - get current height first for smooth transition
+        const currentHeight = content.scrollHeight;
+        content.style.maxHeight = currentHeight + 'px';
+        // Force reflow
+        content.offsetHeight;
+        // Then animate to 0
+        accordion.classList.remove('active');
+        content.classList.remove('active');
+        content.style.maxHeight = '0';
+        chevron?.classList.remove('rotate-180');
+      } else {
+        // Expand this accordion
+        accordion.classList.add('active');
+        content.classList.add('active');
+        // Set to 0 first, then animate to full height
+        content.style.maxHeight = '0';
+        // Force reflow
+        content.offsetHeight;
+        // Use a large value to ensure all content is visible, then optimize after animation
+        content.style.maxHeight = '2000px';
+        // After animation completes, set to actual scrollHeight for better performance
+        setTimeout(() => {
+          const scrollHeight = content.scrollHeight;
+          if (scrollHeight > 0) {
+            content.style.maxHeight = scrollHeight + 'px';
+          }
+        }, 450); // After transition (400ms + small buffer)
+        chevron?.classList.add('rotate-180');
+      }
+    });
+  });
+  
+  // Initialize max-height for initially open accordions
+  document.querySelectorAll('.service-accordion.active .service-content, .service-content.active').forEach((content) => {
+    const contentEl = content as HTMLElement;
+    // Use a large value to ensure all content is visible
+    contentEl.style.maxHeight = '2000px';
+    // After a brief moment, set to actual scrollHeight
+    setTimeout(() => {
+      const scrollHeight = contentEl.scrollHeight;
+      if (scrollHeight > 0) {
+        contentEl.style.maxHeight = scrollHeight + 'px';
+      }
+    }, 100);
+  });
+</script>
+
+<style>
+  .service-accordion {
+    transition: background-color 0.2s ease, backdrop-filter 0.2s ease;
+    display: block;
+    width: 100%;
+  }
+  
+  .service-accordion:hover .chevron-wrapper,
+  .service-accordion.active .chevron-wrapper {
+    background-color: rgba(55, 112, 57, 0.6);
+    border-color: rgba(55, 112, 57, 0.6);
+  }
+  
+  .service-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, padding 0.4s ease-in-out;
+    opacity: 0;
+    padding: 0 1rem;
+  }
+  
+  .service-accordion.active .service-content,
+  .service-content.active {
+    opacity: 1;
+    padding: 1rem;
+  }
+</style>

@@ -5,9 +5,9 @@
 @tailwind utilities;
 
 @layer base {
-  /* Default body text uses Roboto */
+  /* Default body text uses Roboto Light */
   body {
-    @apply font-body;
+    @apply font-body font-light;
   }
 
   /* All headings use Space Grotesk */

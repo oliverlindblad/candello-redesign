@@ -35,7 +35,7 @@ if (!project) {
       <!-- Left Column: Fixed Image/Video (60% width on desktop) -->
       {(project.video || project.image) && (
         <div class="w-full md:w-[60%] pt-10 md:pt-0 md:fixed md:left-0 md:h-[calc(100vh-6rem)] z-10" style="top: 6rem;">
-          <div class="w-full h-[40vh] md:h-full overflow-hidden md:rounded-tr-lg relative">
+          <div class="w-full h-[40vh] md:h-full overflow-hidden md:rounded-tr-sm relative">
             {project.video ? (
               <video 
                 src={project.video} 
@@ -102,7 +102,7 @@ if (!project) {
 
             <!-- Content Image -->
             {project.contentImage && (
-              <div class="mb-8 md:mb-12 relative rounded-md overflow-hidden">
+              <div class="mb-8 md:mb-12 relative rounded-sm overflow-hidden">
                 <img 
                   src={project.contentImage} 
                   alt={project.title} 

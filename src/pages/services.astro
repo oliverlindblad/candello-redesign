@@ -1,42 +1,40 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import ServiceCard from '../components/ServiceCard.astro';
-
-// Service data
-interface Service {
-  title: string;
-  description: string;
-  icon?: string;
-}
-
-const services: Service[] = [
-  {
-    title: 'Indhold',
-    description: 'Candello Media er eksperter i videofilm. Det er ekstremt populært og fungerer i jeres markedsføring perfekt til at fortælle om jeres virksomhed, jeres værdier, jeres produkt.',
-  },
-  {
-    title: 'Digital',
-    description: 'Candello Media tilbyder professionel hjemmesidedesign, der passer til jeres behov.',
-  },
-  {
-    title: 'Marketing',
-    description: 'Du finder snart ikke en dansker, som ikke er på de sociale medier. Derfor er det naturligt, at markedsføring på de sociale medier er eksploderet de seneste par år. Vi kan hjælpe fra start til slut.',
-  },
-];
+import ServiceList from '../components/ServiceList.astro';
 ---
 
-<MainLayout title="Ydelser - Candello Media" description="Se vores services og hvad vi kan hjælpe jer med">
-  <div class="container mx-auto px-4 py-12">
-    <SectionHeading title="Services" />
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {services.map((service) => (
-        <ServiceCard
-          title={service.title}
-          description={service.description}
-        />
-      ))}
+<MainLayout title="Services - Candello Media" description="Se vores services inden for indhold, digital og marketing">
+  <div class="bg-neutral-dark min-h-screen pb-20">
+    <!-- Logo header at top -->
+    <div class="absolute top-0 left-0 right-0 z-20">
+      <div class="container mx-auto px-4 pt-2 pb-8 sm:py-8 flex justify-center">
+        <a href="/" class="text-neutral-light text-md lg:text-xl font-heading uppercase mt-3 sm:mt-0">
+          Candello Media
+        </a>
+      </div>
     </div>
+
+     <!-- Main heading -->
+     <div class=" inset-0 flex items-start justify-start pointer-events-none">
+      <div class="w-full px-4 pt-28">
+        <div class="max-w-7xl mx-auto">
+          <h1 class="text-4xl sm:text-4xl md:text-5xl lg:text-6xl text-neutral-light leading-tight">
+            Services
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider line -->
+    <div class="w-full px-4 pt-8">
+      <div class="max-w-7xl mx-auto border-t border-neutral-light/30"></div>
+    </div>
+    <!-- Project List -->
+    <div class="w-full px-4">
+      <div class="max-w-7xl mx-auto">
+        <ServiceList />
+      </div>
+    </div>
+
   </div>
 </MainLayout>
-
