@@ -1,6 +1,6 @@
 # Candello Media Website Redesign
 
-Modern, responsive marketing website built with Astro, TailwindCSS, and Motion One.
+Modern, responsive website built with Astro, TailwindCSS, and Motion One.
 
 ## Tech Stack
 

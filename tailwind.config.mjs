@@ -23,15 +23,6 @@ export default {
         // Aliases for convenience
         sans: ['Roboto', 'sans-serif'],
       },
-      spacing: {
-        // Custom spacing scale if needed
-      },
-      borderRadius: {
-        // Custom radii from Figma
-      },
-      boxShadow: {
-        // Custom shadows from Figma
-      },
     },
   },
   plugins: [],
