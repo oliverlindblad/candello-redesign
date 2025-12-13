@@ -1,49 +1,125 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
-import SectionHeading from '../components/SectionHeading.astro';
+import Button from '../components/Button.astro';
 ---
 
 <MainLayout title="Om os - Candello Media" description="Lær mere om Candello Media og vores vision">
-  <div class="container mx-auto px-4 py-12">
-    <SectionHeading title="Om os" />
-    
-    <div class="prose max-w-none space-y-8">
-      <section>
-        <h2 class="text-2xl font-bold mb-4">Candello Media</h2>
-        <p class="text-lg">
-          Vi er et digitalt innovativt mediebureau lokaliseret i København. Vi er specialiseret i digital marketing og indhold, 
-          som kan skærpe jeres virksomheds digitale tilstedeværelse og hjælpe jer med at blive set online.
-        </p>
-      </section>
+  <!-- Background with blur effect -->
+  <div class="relative min-h-screen">
+    <!-- Background image -->
+    <div class="absolute inset-0 z-0 min-h-full">
+      <img 
+        src="/images/om-os.webp" 
+        alt="Building background" 
+        class="w-full h-full min-h-full object-cover object-[66%_center] md:object-center"
+      />
+      <div class="absolute inset-0 bg-black/60"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-bg-black/20"></div>
+    </div>
 
-      <section>
-        <h2 class="text-2xl font-bold mb-4">Samarbejdsproces</h2>
-        <p class="text-lg">
-          Hos Candello Media vil vi sørge for at tage jer i hånden fra starten. Her bliver der ikke løbet om hjørner 
-          med transparens og inkludering. I er med i processen så meget i ønsker, og vi er kun et opkald eller besked væk.
-        </p>
-      </section>
-
-      <section>
-        <h2 class="text-2xl font-bold mb-4">Vores vision</h2>
-        <p class="text-lg">
-          Gennem innovativt indhold og digital marketing frembringer vi resultater. Vi er her for at skabe den bedst 
-          mulige skræddersyede digitale løsning, der omfavner jeres behov.
-        </p>
-        <p class="text-lg font-semibold mt-4">Lad os hjælpe jer med at blive set online.</p>
-      </section>
-
-      <section>
-        <h2 class="text-2xl font-bold mb-4">Forespørgsler</h2>
-        <p class="text-lg mb-4">Tøv ikke med at kontakte os til en uforpligtende snak.</p>
-        <div>
-          <p class="font-semibold">Emil Claudio Søndergaard</p>
-          <p>Administrerende direktør</p>
-          <p>info@candello.dk</p>
-          <p>+45 22156433</p>
+    <!-- Content -->
+    <div class="relative z-10 min-h-screen flex flex-col">
+      <!-- Logo header at top -->
+      <div class="absolute top-0 left-0 right-0 z-20">
+        <div class="container mx-auto px-4 pt-2 pb-8 sm:py-8 flex justify-center">
+          <a href="/" class="text-neutral-light text-md lg:text-xl font-heading uppercase mt-3 sm:mt-0">
+            Candello Media
+          </a>
         </div>
-      </section>
+      </div>
+
+      <!-- Main content -->
+      <div class="flex-1 pt-28 pb-24 px-4 md:px-8 lg:px-16">
+        <div class="max-w-7xl mx-auto">
+          <!-- Text content -->
+          <div class="flex flex-col space-y-8 md:space-y-12">
+              <!-- Om os heading -->
+              <h1 class="text-5xl md:text-6xl lg:text-8xl text-neutral-light font-heading font-light leading-tight">
+                Om os
+              </h1>
+
+              <!-- Divider -->
+              <div class="md:max-w-4xl border-t border-neutral-light/20"></div>
+
+              <!-- Candello Media section -->
+              <section class="grid grid-cols-1 md:grid-cols-2 md:max-w-4xl gap-4 md:gap-0 md:pb-20">
+                <h2 class="text-2xl md:text-3xl text-neutral-light font-heading font-light">
+                  Candello Media
+                </h2>
+                <div class="space-y-4">
+                  <p class="text-base md:text-lg text-neutral-light font-body font-light leading-relaxed">
+                    Vi er et digitalt innovativt mediebureau lokaliseret i København. Vi er specialiseret i digital marketing og indhold, 
+                    som kan skærpe jeres virksomheds digitale tilstedeværelse og hjælpe jer med at blive set online.
+                  </p>
+                </div>
+              </section>
+
+              <!-- Divider -->
+              <div class="md:max-w-4xl border-t border-neutral-light/20"></div>
+
+              <!-- Samarbejdsproces section -->
+              <section class="grid grid-cols-1 md:grid-cols-2 md:max-w-4xl gap-4 md:gap-0 md:pb-20">
+                <h2 class="text-2xl md:text-3xl text-neutral-light font-heading font-light">
+                  Samarbejdsproces
+                </h2>
+                <div class="space-y-4">
+                  <p class="text-base md:text-lg text-neutral-light font-body font-light leading-relaxed">
+                    Hos Candello Media vil vi sørge for at tage jer i hånden fra starten. Her bliver der ikke løbet om hjørner 
+                    med transparens og inkludering. I er med i processen så meget i ønsker, og vi er kun et opkald eller besked væk.
+                  </p>
+                  <p class="text-base md:text-lg text-neutral-light font-body font-light leading-relaxed">
+                    Kontakt os for at høre nærmere om en skræddersyet løsning.
+                  </p>
+                </div>
+              </section>
+
+              <!-- Divider -->
+              <div class="md:max-w-4xl border-t border-neutral-light/20"></div>
+
+              <!-- Vores vision section -->
+              <section class="grid grid-cols-1 md:grid-cols-2 md:max-w-4xl gap-4 md:gap-0 md:pb-20">
+                <h2 class="text-2xl md:text-3xl text-neutral-light font-heading font-light">
+                  Vores vision
+                </h2>
+                <div class="space-y-4">
+                  <p class="text-base md:text-lg text-neutral-light font-body font-light leading-relaxed">
+                    Gennem innovativt indhold og digital marketing frembringer vi resultater. Vi er her for at skabe den bedst 
+                    mulige skræddersyede digitale løsning, der omfavner jeres behov.
+                  </p>
+                  <p class="text-base md:text-lg text-neutral-light font-body font-light leading-relaxed">
+                    Lad os hjælpe jer med at blive set online.
+                  </p>
+                </div>
+              </section>
+
+              <!-- Divider -->
+              <div class="md:max-w-4xl border-t border-neutral-light/20"></div>
+
+              <!-- Forespørgsler section -->
+              <section class="grid grid-cols-1 md:grid-cols-2 md:max-w-4xl gap-4 md:gap-0 pb-6 md:pb-20">
+                <h2 class="text-2xl md:text-3xl text-neutral-light font-heading font-light">
+                  Forespørgsler
+                </h2>
+                <div class="space-y-4">
+                  <p class="text-base md:text-lg text-neutral-light font-body font-light leading-relaxed">
+                    Tøv ikke med at kontakte os til en uforpligtende snak.
+                  </p>
+                  <div class="flex flex-col space-y-1 text-base md:text-lg text-neutral-light font-body font-light">
+                    <p class="font-medium">Emil Claudio Søndergaard</p>
+                    <p>Administrerende direktør</p>
+                  </div>
+                  <div class="pt-4">
+                    <Button href="/kontakt" variant="primary" class="!block !w-full md:!inline-block md:!w-auto">
+                      Kontakt os
+                    </Button>
+                  </div>
+                </div>
+              </section>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </MainLayout>
+
 
