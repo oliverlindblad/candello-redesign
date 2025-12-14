@@ -1,5 +1,6 @@
 ---
 import Nav from '../components/Nav.astro';
+import LoginGate from '../components/LoginGate.astro';
 import '../styles/global.css';
 
 const { title, description = 'Candello Media - Innovativt digitalt mediebureau' } = Astro.props;
@@ -16,6 +17,7 @@ const { title, description = 'Candello Media - Innovativt digitalt mediebureau' 
     <title>{title}</title>
   </head>
   <body class="font-body bg-neutral-dark text-neutral-dark">
+    <LoginGate />
     <Nav />
     <main>
       <slot />

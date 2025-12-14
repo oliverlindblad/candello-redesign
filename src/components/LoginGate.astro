@@ -1,0 +1,131 @@
+---
+// Here you can change the password
+const PASSWORD = 'redesign2025';
+
+// Simple hash function for obfuscation (not secure, just makes it less obvious)
+function simpleHash(str: string): string {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  return hash.toString();
+}
+
+const PASSWORD_HASH = simpleHash(PASSWORD);
+---
+
+<div id="login-overlay" class="fixed inset-0 z-[9999] bg-neutral-dark flex items-center justify-center" style="display: none;">
+  <div class="bg-neutral-light/10 backdrop-blur-md border border-white/20 rounded-lg p-8 md:p-12 max-w-md w-full mx-4">
+    <h2 class="text-2xl md:text-3xl text-neutral-light font-heading font-light mb-6 text-center">
+      Adgangskode påkrævet
+    </h2>
+    <p class="text-neutral-grey text-center mb-6 text-sm md:text-base">
+      Indtast adgangskoden for at få adgang
+    </p>
+    <form id="login-form" class="space-y-4">
+      <input
+        type="password"
+        id="password-input"
+        placeholder="Adgangskode"
+        class="w-full bg-transparent border-0 border-b border-neutral-light/30 text-neutral-light placeholder:text-neutral-light/60 focus:outline-none focus:border-neutral-light pb-2 text-base md:text-lg font-body font-light transition-colors"
+        autocomplete="off"
+        autofocus
+      />
+      <div id="error-message" class="text-red-400 text-sm text-center hidden">
+        Forkert adgangskode. Prøv igen.
+      </div>
+      <button
+        type="submit"
+        class="w-full bg-brand-green/60 hover:bg-brand-green/80 text-neutral-light py-3 px-6 rounded-full font-body font-light transition-colors"
+      >
+        Log ind
+      </button>
+    </form>
+  </div>
+</div>
+
+<script define:vars={{ passwordHash: PASSWORD_HASH }}>
+  // Simple hash function (matches server-side)
+  function simpleHash(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    return hash.toString();
+  }
+  
+  // Check if user is already authenticated
+  const isAuthenticated = sessionStorage.getItem('candello_authenticated') === 'true';
+  
+  const overlay = document.getElementById('login-overlay');
+  const form = document.getElementById('login-form');
+  const passwordInput = document.getElementById('password-input');
+  const errorMessage = document.getElementById('error-message');
+  
+  if (!isAuthenticated) {
+    // Show login overlay
+    if (overlay) {
+      overlay.style.display = 'flex';
+      // Prevent body scroll when overlay is shown
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  
+  // Handle form submission
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const enteredPassword = passwordInput?.value || '';
+    const enteredHash = simpleHash(enteredPassword);
+    
+    if (enteredHash === passwordHash) {
+      // Store authentication in sessionStorage
+      sessionStorage.setItem('candello_authenticated', 'true');
+      
+      // Hide overlay and restore body scroll
+      if (overlay) {
+        overlay.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      
+      // Clear error message
+      if (errorMessage) {
+        errorMessage.classList.add('hidden');
+      }
+      
+      // Clear password input
+      if (passwordInput) {
+        passwordInput.value = '';
+      }
+    } else {
+      // Show error message
+      if (errorMessage) {
+        errorMessage.classList.remove('hidden');
+      }
+      
+      // Clear password input
+      if (passwordInput) {
+        passwordInput.value = '';
+        passwordInput.focus();
+      }
+    }
+  });
+  
+  // Focus input when overlay is shown
+  if (!isAuthenticated && passwordInput) {
+    setTimeout(() => {
+      passwordInput.focus();
+    }, 100);
+  }
+</script>
+
+<style>
+  #login-overlay {
+    backdrop-filter: blur(8px);
+  }
+</style>
+
