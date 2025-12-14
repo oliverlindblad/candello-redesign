@@ -7,7 +7,7 @@ import MainHeading from '../components/MainHeading.astro';
 
 <MainLayout title="Kontakt - Candello Media" description="Kontakt os for at høre mere om vores services">
   <!-- Background with blur effect -->
-  <div class="relative h-screen overflow-hidden">
+  <div class="relative min-h-screen">
     <!-- Background image -->
     <div class="fixed inset-0 z-0">
       <img 
@@ -20,21 +20,21 @@ import MainHeading from '../components/MainHeading.astro';
     </div>
 
     <!-- Content -->
-    <div class="relative z-10 h-screen flex flex-col overflow-hidden">
+    <div class="relative z-10 min-h-screen flex flex-col">
       <PageHeader comment="Logo header at top" />
 
       <!-- Main content -->
-      <div class="flex-1 pt-28 pb-24 px-4 md:px-8 lg:px-16">
+      <div class="flex-1 pt-20 md:pt-28 pb-24 px-4 md:px-8 lg:px-16">
         <div class="container-content">
-          <MainHeading headingSize="text-5xl md:text-6xl lg:text-8xl" simple={true}>
-            Kontakt os
-          </MainHeading>
+         
           <!-- Two column layout -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-12 pt-4 md:pt-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 lg:gap-12">
             <!-- Left column: Contact information -->
             <div class="flex flex-col space-y-4">
+              <MainHeading headingSize="text-5xl md:text-6xl lg:text-8xl" simple={true}>
+                Kontakt os
+              </MainHeading>
               
-              <!-- Mobile: 2-column grid, Desktop: single column -->
               <div class="grid grid-cols-2 md:flex md:flex-col gap-4 md:gap-0 md:space-y-1">
                 <!-- Contact info column -->
                 <div class="flex flex-col space-y-1 text-md md:text-lg text-neutral-light md:text-neutral-grey font-body font-light">
@@ -98,7 +98,7 @@ import MainHeading from '../components/MainHeading.astro';
             </div>
 
             <!-- Right column: Contact form -->
-            <div class="flex items-start">
+            <div class="flex items-start pb-6 md:pb-0">
               <form class="w-full backdrop-blur-md bg-neutral-dark/10 border border-white/10 rounded-md p-6 md:p-8 space-y-6">
                 <!-- Virksomhed -->
                 <div class="relative">
@@ -162,12 +162,3 @@ import MainHeading from '../components/MainHeading.astro';
   </div>
 </MainLayout>
 
-<script>
-  // Prevent scrolling on the contact page
-  document.body.style.overflow = 'hidden';
-  
-  // Clean up when navigating away (optional, but good practice)
-  window.addEventListener('beforeunload', () => {
-    document.body.style.overflow = '';
-  });
-</script>
