@@ -111,7 +111,7 @@ const services = [
                   data-service={serviceItem.name.toLowerCase().replace(/\s+/g, '-')}
                 >
                   <span class="text-lg md:text-xl font-light">{serviceItem.name}</span>
-                  <div class="chevron-wrapper w-8 h-8 bg-transparent border border-neutral-grey rounded-full flex items-center justify-center hover:bg-brand-green/60 hover:border-brand-green/60 transition-all duration-300">
+                  <div class="chevron-wrapper w-8 h-8 bg-transparent border border-neutral-grey rounded-full flex items-center justify-center md:hover:bg-brand-green/60 md:hover:border-brand-green/60 transition-all duration-300">
                     <svg
                       class="w-4 h-4 text-neutral-light transition-transform"
                       fill="none"
@@ -238,10 +238,16 @@ const services = [
     width: 100%;
   }
   
-  .service-accordion:hover .chevron-wrapper,
   .service-accordion.active .chevron-wrapper {
     background-color: rgba(55, 112, 57, 0.6);
     border-color: rgba(55, 112, 57, 0.6);
+  }
+  
+  @media (min-width: 768px) {
+    .service-accordion:hover .chevron-wrapper {
+      background-color: rgba(55, 112, 57, 0.6);
+      border-color: rgba(55, 112, 57, 0.6);
+    }
   }
   
   .service-content {

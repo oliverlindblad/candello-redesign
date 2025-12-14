@@ -5,7 +5,7 @@ const { title, description, image, slug, category } = Astro.props;
 <a href={`/projekter/${slug}`} class="project-card block group">
   {image && (
     <div class="w-full aspect-[4/3] overflow-hidden mb-4 relative rounded-sm">
-      <img src={image} alt={title} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+      <img src={image} alt={title} class="w-full h-full object-cover md:group-hover:scale-110 transition-transform duration-300" />
       <div class="absolute inset-0 bg-black/50"></div>
     </div>
   )}

@@ -47,14 +47,14 @@ const testimonials = [
             class={`testimonial-logo block text-left py-4 transition-colors ${
               index === 0
                 ? 'text-neutral-light'
-                : 'text-neutral-grey hover:text-neutral-light'
+                : 'text-neutral-grey md:hover:text-neutral-light'
             }`}
             data-index={index}
           >
             <div class={`inline-block border-b transition-colors ${
               index === 0 
                 ? 'border-neutral-light' 
-                : 'border-neutral-light/30 hover:border-neutral-light'
+                : 'border-neutral-light/30 md:hover:border-neutral-light'
             }`}>
               {testimonial.logo ? (
                 <img 
@@ -78,12 +78,12 @@ const testimonials = [
       <div class="flex flex-col justify-center md:col-span-1 relative">
         <!-- Mobile Navigation Arrows - aligned with quotation mark -->
         <div class="absolute -top-2 right-0 flex gap-2 md:hidden z-10">
-          <button id="prev-testimonial" class="w-10 h-10 rounded-full bg-brand-green flex items-center justify-center hover:opacity-80 transition-opacity">
+          <button id="prev-testimonial" class="w-10 h-10 rounded-full bg-brand-green flex items-center justify-center md:hover:opacity-80 transition-opacity">
             <svg class="w-5 h-5 text-neutral-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <button id="next-testimonial" class="w-10 h-10 rounded-full bg-brand-green flex items-center justify-center hover:opacity-80 transition-opacity">
+          <button id="next-testimonial" class="w-10 h-10 rounded-full bg-brand-green flex items-center justify-center md:hover:opacity-80 transition-opacity">
             <svg class="w-5 h-5 text-neutral-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
@@ -242,9 +242,11 @@ const testimonials = [
     opacity: 0.4;
   }
   
-  .testimonial-logo:hover img.logo-inactive {
-    filter: brightness(0) invert(1);
-    opacity: 1;
+  @media (min-width: 768px) {
+    .testimonial-logo:hover img.logo-inactive {
+      filter: brightness(0) invert(1);
+      opacity: 1;
+    }
   }
 </style>
 

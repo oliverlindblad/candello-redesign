@@ -3,7 +3,7 @@ const { href, variant = 'primary', type = 'button', class: className = '' } = As
 
 const baseClasses = 'px-6 py-3 rounded-full transition-colors text-lg md:text-md text-center';
 const variantClasses: Record<string, string> = {
-  primary: 'bg-brand-green text-neutral-light hover:bg-[#CFDACF] hover:text-neutral-dark',
+  primary: 'bg-brand-green text-neutral-light md:hover:bg-[#CFDACF] md:hover:text-neutral-dark',
 };
 
 const classes = `${baseClasses} ${variantClasses[variant] || variantClasses.primary} ${className}`;
