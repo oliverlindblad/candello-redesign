@@ -1,35 +1,15 @@
 ---
 import ProjectCard from './ProjectCard.astro';
 
-interface Project {
-  title: string;
-  description: string;
-  slug: string;
-  image?: string;
-  video?: string;
-  category?: string;
-  subtitle?: string;
-  sectionTitle?: string;
-  sectionTitleTwo?: string;
-  additionalContent?: string;
-  additionalContentTwo?: string;
-  additionalContentThree?: string;
-  contentImage?: string;
-}
-
-interface Props {
-  projects?: Project[];
-}
-
 // Project data - exported so other files can use it
-export const defaultProjects: Project[] = [
+export const defaultProjects = [
 {
-  title: 'Atriet',
+  title: 'Atriet - Nordstern',
   description: 'Et foto-projekt, der dokumenterer opførelsen af Atriet – 206 ungdomsboliger – med fokus på arkitektur, proces og mennesket bag byggeriet.',
   slug: 'atriet',
   image: '/images/atriet.webp',
   category: 'Foto',
-  subtitle: '206 ungdomsboliger i udvikling',
+  subtitle: '206 Ungdomsboliger i udvikling',
   sectionTitle: 'Byggeri fortalt gennem billeder',
   sectionTitleTwo: 'Dokumentation med blik for detaljer',
   additionalContent: 'Atriet er et større boligprojekt opført af Nordstern med fokus på funktionelle og moderne rammer for unge. Foto-projektet havde til formål at dokumentere byggeriets udvikling og formidle den proces, der ligger bag opførelsen af de 206 ungdomsboliger.',
@@ -44,7 +24,7 @@ export const defaultProjects: Project[] = [
   image: '/images/carlsberg-byen.webp',
   video: '/videos/carlsberg-byen.mp4',
   category: 'Dronefilm',
-  subtitle: 'Byens arkitektur fortalt fra luften',
+  subtitle: 'Arkitektur fortalt fra luften',
   sectionTitle: 'Et nyt perspektiv på et levende byområde',
   sectionTitleTwo: 'Visuel storytelling med bevægelse og overblik',
   additionalContent: 'Med dronefilm over Carlsberg Byen ønskede vi at skabe et visuelt overblik, der viser områdets særlige sammenspil mellem historiske bygninger og moderne arkitektur. Set fra luften træder strukturer, linjer og byens rytme tydeligere frem.',
@@ -60,7 +40,7 @@ export const defaultProjects: Project[] = [
   image: '/images/hotel-aurelia.webp',
   video: '/videos/hotel-aurelia.mp4',
   category: 'Foto & Film',
-  subtitle: 'Luksus, ro og æstetik i fokus',
+  subtitle: 'Luksus og æstetik i fokus',
   sectionTitle: 'En sanselig fortælling om luksus',
   sectionTitleTwo: 'Visuelt indhold, der skaber forventning',
   additionalContent: 'Hotel Aurelia er et eksklusivt boutiquehotel, hvor detaljerne er i centrum, og oplevelsen starter længe før gæsten ankommer. Projektets mål var at indfange hotellets særlige atmosfære gennem foto og film, med fokus på ro, kvalitet og æstetik.',
@@ -84,21 +64,19 @@ export const defaultProjects: Project[] = [
     contentImage: '/images/dandys-single-image.webp',
   },
 ];
-
-const { projects = defaultProjects } = Astro.props;
 ---
 
 <section class="project-list">
-  <div class="max-w-7xl mx-auto">
+  <div class="container-content">
     <div class="space-y-8 md:space-y-12">
-      {Array.from({ length: Math.ceil(projects.length / 2) }).map((_, rowIndex) => {
+      {Array.from({ length: Math.ceil(defaultProjects.length / 2) }).map((_, rowIndex) => {
         const startIndex = rowIndex * 2;
-        const rowProjects = projects.slice(startIndex, startIndex + 2);
-        const isLastRow = startIndex + 2 >= projects.length;
+        const rowProjects = defaultProjects.slice(startIndex, startIndex + 2);
         
         return (
           <div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+              {/* @ts-ignore */}
               {rowProjects.map((project) => (
                 <ProjectCard
                   title={project.title}

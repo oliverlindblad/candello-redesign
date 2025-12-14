@@ -16,3 +16,10 @@
   }
 }
 
+@layer utilities {
+  /* Content container utility - max-width 7xl with auto margins */
+  .container-content {
+    @apply max-w-7xl mx-auto;
+  }
+}
+

@@ -1,6 +1,8 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import VideoCarousel from '../components/VideoCarousel.astro';
+import PageHeader from '../components/PageHeader.astro';
+import MainHeading from '../components/MainHeading.astro';
 ---
 
 <MainLayout title="Forside - Candello Media">
@@ -9,25 +11,11 @@ import VideoCarousel from '../components/VideoCarousel.astro';
     <!-- Video carousel background -->
     <VideoCarousel />
     
-    <!-- Main heading -->
-    <div class="absolute inset-0 flex items-start justify-start z-10 pointer-events-none">
-      <div class="w-full px-4 pt-28">
-        <div class="max-w-7xl mx-auto">
-          <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-7xl text-neutral-light leading-tight">
-            Innovativt <br> digitalt <br> mediebureau
-          </h1>
-        </div>
-      </div>
-    </div>
+    <MainHeading absolute={true} headingSize="text-5xl sm:text-6xl md:text-7xl lg:text-7xl">
+      Innovativt <br> digitalt <br> mediebureau
+    </MainHeading>
 
-    <!-- Logo header at top - positioned below progress bars on mobile -->
-    <div class="absolute top-0 left-0 right-0 z-20">
-      <div class="container mx-auto px-4 pt-2 pb-8 sm:py-8 flex justify-center">
-        <a href="/" class="text-neutral-light text-md lg:text-xl font-heading uppercase mt-3 sm:mt-0">
-          Candello Media
-        </a>
-      </div>
-    </div>
+    <PageHeader comment="Logo header at top - positioned below progress bars on mobile" />
   </div>
 </MainLayout>
 

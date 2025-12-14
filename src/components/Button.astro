@@ -1,20 +1,12 @@
 ---
-interface Props {
-  href?: string;
-  variant?: 'primary' | 'secondary';
-  type?: 'button' | 'submit';
-  class?: string;
-}
-
 const { href, variant = 'primary', type = 'button', class: className = '' } = Astro.props;
 
 const baseClasses = 'px-6 py-3 rounded-full transition-colors text-lg md:text-md text-center';
-const variantClasses = {
+const variantClasses: Record<string, string> = {
   primary: 'bg-brand-green text-neutral-light hover:bg-[#CFDACF] hover:text-neutral-dark',
-  secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300',
 };
 
-const classes = `${baseClasses} ${variantClasses[variant]} ${className}`;
+const classes = `${baseClasses} ${variantClasses[variant] || variantClasses.primary} ${className}`;
 ---
 
 {href ? (

@@ -1,6 +1,8 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import Button from '../components/Button.astro';
+import PageHeader from '../components/PageHeader.astro';
+import MainHeading from '../components/MainHeading.astro';
 ---
 
 <MainLayout title="Om os - Candello Media" description="Lær mere om Candello Media og vores vision">
@@ -19,24 +21,17 @@ import Button from '../components/Button.astro';
 
     <!-- Content -->
     <div class="relative z-10 min-h-screen flex flex-col">
-      <!-- Logo header at top -->
-      <div class="absolute top-0 left-0 right-0 z-20">
-        <div class="container mx-auto px-4 pt-2 pb-8 sm:py-8 flex justify-center">
-          <a href="/" class="text-neutral-light text-md lg:text-xl font-heading uppercase mt-3 sm:mt-0">
-            Candello Media
-          </a>
-        </div>
-      </div>
+      <PageHeader comment="Logo header at top" />
 
       <!-- Main content -->
       <div class="flex-1 pt-28 pb-24 px-4 md:px-8 lg:px-16">
-        <div class="max-w-7xl mx-auto">
+        <div class="container-content">
           <!-- Text content -->
           <div class="flex flex-col space-y-8 md:space-y-12">
               <!-- Om os heading -->
-              <h1 class="text-5xl md:text-6xl lg:text-8xl text-neutral-light font-heading font-light leading-tight">
+              <MainHeading headingSize="text-5xl md:text-6xl lg:text-8xl" simple={true}>
                 Om os
-              </h1>
+              </MainHeading>
 
               <!-- Divider -->
               <div class="md:max-w-4xl border-t border-neutral-light/20"></div>

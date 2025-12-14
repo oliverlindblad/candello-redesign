@@ -1,0 +1,29 @@
+---
+const { 
+  absolute = false,
+  zIndex = 'z-10',
+  headingSize = 'text-4xl sm:text-4xl md:text-5xl lg:text-6xl',
+  simple = false
+} = Astro.props;
+
+const containerClasses = absolute
+  ? `absolute inset-0 flex items-start justify-start ${zIndex} pointer-events-none`
+  : 'inset-0 flex items-start justify-start pointer-events-none';
+---
+
+{simple ? (
+  <h1 class={`${headingSize} text-neutral-light font-heading font-light leading-tight`}>
+    <slot />
+  </h1>
+) : (
+  <div class={containerClasses}>
+    <div class="w-full px-4 pt-28">
+      <div class="container-content">
+        <h1 class={`${headingSize} text-neutral-light leading-tight`}>
+          <slot />
+        </h1>
+      </div>
+    </div>
+  </div>
+)}
+

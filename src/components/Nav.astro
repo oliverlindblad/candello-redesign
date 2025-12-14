@@ -7,6 +7,10 @@ function isActive(path: string): boolean {
   if (path === '/') {
     return currentPath === '/';
   }
+  // For /projekter, only match exact path, not sub-paths
+  if (path === '/projekter') {
+    return currentPath === '/projekter';
+  }
   return currentPath.startsWith(path);
 }
 ---

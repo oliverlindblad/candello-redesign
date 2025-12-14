@@ -2,6 +2,7 @@
 import MainLayout from '../../layouts/MainLayout.astro';
 import { defaultProjects as projects } from '../../components/ProjectList.astro';
 import Button from '../../components/Button.astro';
+import PageHeader from '../../components/PageHeader.astro';
 
 export async function getStaticPaths() {
   return projects.map((project) => ({
@@ -19,14 +20,7 @@ if (!project) {
 
 <MainLayout title={`${project.title} - Projekter - Candello Media`} description={project.description}>
   <div class="bg-neutral-dark min-h-screen">
-    <!-- Logo header at top - fixed in viewport on desktop only -->
-    <div class="relative md:fixed md:top-0 md:left-0 md:right-0 z-30">
-      <div class="container mx-auto px-4 pt-2 pb-2 sm:py-8 flex justify-center">
-        <a href="/" class="text-neutral-light text-md lg:text-xl font-heading uppercase mt-3 sm:mt-0">
-          Candello Media
-        </a>
-      </div>
-    </div>
+    <PageHeader position="fixed" zIndex="z-30" bottomPadding="pb-2" comment="Logo header at top - fixed in viewport on desktop only" />
 
    
 
@@ -70,13 +64,13 @@ if (!project) {
 
             <!-- Title and Category -->
             <div class="mb-4 md:mb-8">
-              <h1 class="text-4xl sm:text-5xl md:text-4xl font-light text-neutral-light leading-tight mb-4">
+              <h1 class="text-3xl sm:text-5xl md:text-5xl font-light text-neutral-light leading-tight mb-4">
                 {project.title}
               </h1>
             </div>
 
             <!-- Description -->
-            {project.description && (
+            {project.additionalContent && (
               <div class="mb-8 md:mb-12">
                 <p class="text-base md:text-md text-neutral-grey leading-relaxed">
                   {project.additionalContent}

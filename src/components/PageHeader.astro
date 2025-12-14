@@ -1,0 +1,25 @@
+---
+const { 
+  position = 'absolute', 
+  zIndex = 'z-20',
+  bottomPadding = 'pb-8',
+  comment
+} = Astro.props;
+
+// For slug page: relative md:fixed, for others: absolute
+const positionClasses = position === 'fixed' 
+  ? 'relative md:fixed md:top-0 md:left-0 md:right-0'
+  : 'absolute top-0 left-0 right-0';
+---
+
+{comment && (
+  <!-- {comment} -->
+)}
+<div class={`${positionClasses} ${zIndex}`}>
+  <div class={`container mx-auto px-4 pt-2 ${bottomPadding} sm:py-8 flex justify-center`}>
+    <a href="/" class="text-neutral-light text-md lg:text-xl font-heading uppercase mt-3 sm:mt-0">
+      Candello Media
+    </a>
+  </div>
+</div>
+

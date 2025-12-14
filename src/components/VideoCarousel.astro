@@ -1,44 +1,30 @@
 ---
 // Video carousel component with autoplay, loop, and navigation controls
-interface Props {
-  videos?: Array<{
-    src: string;
-    title?: string;
-    subtitle?: string;
-  }>;
-}
-
-const { videos = [] } = Astro.props;
-
 // Project videos
 const defaultVideos = [
   { 
     src: '/videos/soegaard-staalbyg-reference-hjemmeside.mp4', 
     title: 'Søgaard Stålbyg',
-    titleLines: ['Søgaard Stålbyg'],
     subtitle: 'En moderne virksomhed i byggebranchen'
   },
   { 
     src: '/videos/hoeje-taastrup-turist-reference-hjemmeside.mp4', 
     title: 'Høje Taastrup Turistforening',
-    titleLines: ['Høje', 'Taastrup', 'Turistforening'],
     subtitle: 'Se de mange seværdigheder fra Taastrup'
   },
   { 
     src: '/videos/v-meyer-reference-hjemmeside.mp4', 
     title: 'V. Meyer',
-    titleLines: ['V.', 'Meyer'],
     subtitle: 'Sætter moderne præg på de danske byggerier'
   },
   { 
     src: '/videos/stm-stemningsfilm-opdateret.mp4', 
     title: 'STM Vinduer',
-    titleLines: ['STM', 'Vinduer'],
     subtitle: 'En virtuel messestand under corona'
   },
 ];
 
-const videoList = videos.length > 0 ? videos : defaultVideos;
+const videoList = defaultVideos;
 let currentIndex = 0;
 ---
 
@@ -87,7 +73,7 @@ let currentIndex = 0;
   <!-- Mobile: Progress bars only - positioned at top above logo -->
   <div class="absolute top-0 left-0 right-0 pt-2 sm:hidden z-30">
     <div class="w-full px-4">
-      <div class="max-w-7xl mx-auto flex justify-between gap-3 items-center">
+      <div class="container-content flex justify-between gap-3 items-center">
         {videoList.map((video, index) => (
           <div 
             data-mobile-progress-wrapper={index}
@@ -108,7 +94,7 @@ let currentIndex = 0;
   <!-- Desktop: Project teasers overlay - positioned below nav, full width -->
   <div class="hidden sm:block absolute bottom-8 left-0 right-0 z-10">
     <div class="w-full px-4">
-      <div id="project-teasers" class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-4 w-full max-w-7xl mx-auto">
+      <div id="project-teasers" class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-4 w-full container-content">
         {videoList.map((video, index) => (
           <div
             data-teaser-index={index}

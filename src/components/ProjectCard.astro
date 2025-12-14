@@ -1,16 +1,8 @@
 ---
-interface Props {
-  title: string;
-  description?: string;
-  image?: string;
-  slug?: string;
-  category?: string;
-}
-
 const { title, description, image, slug, category } = Astro.props;
 ---
 
-<a href={slug ? `/projekter/${slug}` : '#'} class="project-card block group">
+<a href={`/projekter/${slug}`} class="project-card block group">
   {image && (
     <div class="w-full aspect-[4/3] overflow-hidden mb-4 relative rounded-sm">
       <img src={image} alt={title} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />

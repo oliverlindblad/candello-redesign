@@ -1,25 +1,7 @@
 ---
 import Button from './Button.astro';
 
-interface ServiceItem {
-  name: string;
-  description: string;
-}
-
-interface MediaItem {
-  type: 'image' | 'video';
-  src: string;
-}
-
-interface Service {
-  title: string;
-  description: string;
-  services: ServiceItem[];
-  media: MediaItem[];
-  buttonText: string;
-}
-
-const services: Service[] = [
+const services = [
   {
     title: 'Indhold',
     description: 'Candello Media er eksperter i videofilm. Det er ekstremt populært og fungerer i jeres markedsføring  perfekt til at fortælle om jeres virksomhed, jeres værdier, jeres produkt.',
@@ -122,8 +104,8 @@ const services: Service[] = [
           
           <!-- Expandable Service Accordions -->
           <div class="flex flex-col gap-4 md:gap-3">
-            {service.services.map((serviceItem, itemIndex) => (
-              <div class="service-accordion backdrop-blur-md bg-neutral-light/5 rounded-sm overflow-hidden relative">
+            {service.services.map((serviceItem) => (
+              <div class="service-accordion bg-neutral-light/5 rounded-sm overflow-hidden relative">
                 <button
                   class="service-button w-full text-left text-neutral-light px-4 py-6 flex items-center justify-between"
                   data-service={serviceItem.name.toLowerCase().replace(/\s+/g, '-')}
