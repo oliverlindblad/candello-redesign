@@ -1,4 +1,6 @@
 ---
+import Button from './Button.astro';
+
 // Here you can change the password
 const PASSWORD = 'redesign2025';
 
@@ -36,12 +38,12 @@ const PASSWORD_HASH = simpleHash(PASSWORD);
       <div id="error-message" class="text-red-400 text-sm text-center hidden">
         Forkert adgangskode. Prøv igen.
       </div>
-      <button
+      <Button
         type="submit"
-        class="w-full bg-brand-green/60 hover:bg-brand-green/80 text-neutral-light py-3 px-6 rounded-full font-body font-light transition-colors"
+        class="w-full"
       >
         Log ind
-      </button>
+      </Button>
     </form>
   </div>
 </div>
