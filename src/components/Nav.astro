@@ -2,16 +2,25 @@
 // Navigation component - closed state (oval bar) and open state (fullscreen overlay)
 const currentPath = Astro.url.pathname;
 
+// Helper function to normalize paths (remove trailing slashes except for root)
+function normalizePath(path: string): string {
+  if (path === '/') return '/';
+  return path.replace(/\/$/, '');
+}
+
 // Helper function to check if a path is active
 function isActive(path: string): boolean {
-  if (path === '/') {
-    return currentPath === '/';
+  const normalizedPath = normalizePath(path);
+  const normalizedCurrentPath = normalizePath(currentPath);
+  
+  if (normalizedPath === '/') {
+    return normalizedCurrentPath === '/';
   }
   // For /projekter, only match exact path, not sub-paths
-  if (path === '/projekter') {
-    return currentPath === '/projekter';
+  if (normalizedPath === '/projekter') {
+    return normalizedCurrentPath === '/projekter';
   }
-  return currentPath.startsWith(path);
+  return normalizedCurrentPath.startsWith(normalizedPath);
 }
 ---
 
